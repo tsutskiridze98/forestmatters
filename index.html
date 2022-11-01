@@ -8,25 +8,56 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-   <input id="jishi" type="text" placeholder="ხე">
-   <input id="diam" type="text" placeholder="დიამეტრი">
-   <input id="tanrigi" type="text" placeholder="თანრიგი">
-   <button id="btn" type="submit">btn</button>
+<body><div class="for-set">
+        <div class="tanrigi-div" id="tanrigi-div">
+            <div class="tanrigi-box">
+                <select name="jishi" class="tanrigi-jishi">
+                    <option value="akacia">აკაცია</option>
+                    <option value="fiWvi">ფიჭვი</option>
+                    <option value="muxa">მუხა</option>
+                    <option value="muxaqarTuli">მუხა ქართული</option>
+                    <option value="naZvi">ნაძვი</option>
+                    <option value="rcxila">რცხილა</option>
+                    <option value="soWi">სოჭი</option>
+                    <option value="Txmela">თხმელა</option>
+                    <option value="wifeli">წიფელი</option>
+                </select>
+                <input type="text" placeholder="თანრიგი" class='tanrigi-input'>
+            </div>
+        </div>
+        <div>
+            <button id="btn-add">+</button>
+            <button id="btn-set">set</button>
+        </div>
+   </div>
 
-   <div id="div">
-    <table id="cxrili">
-        <tr>
-            <th>ხის #</th>
-            <th>ჯიში</th>
-            <th>დიამეტრი</th>
-            <th>ლიკვიდური მოცულობა</th>
-            <th>შეშა ვარჯიდან</th>
-            <th>სულ გასაცემი</th>
-        </tr>
-        <!-- <tr id="cxrili">
-          
-        </tr> -->
+
+    <div>
+        <select name="trees" id="jishi">
+        </select>
+        <input id="diam" type="text" placeholder="დიამეტრი">
+        <button id="btn" disabled type="submit">btn</button>
+    </div>
+
+   <div>
+    <div id="div">
+
+    </div>
+    <table >
+        <thead>
+            <tr>
+                <th>ხის #</th>
+                <th>ჯიში</th>
+                <th>დიამეტრი</th>
+                <th>ლიკვიდური მოცულობა</th>
+                <th>შეშა ვარჯიდან</th>
+                <th>სულ გასაცემი</th>
+                <th>წაშლა</th>
+            </tr>
+        </thead>
+        <tbody id="cxrili">
+
+        </tbody>
       </table>
    </div>
    <script src="script.js"></script>

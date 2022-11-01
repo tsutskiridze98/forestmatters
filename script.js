@@ -1855,12 +1855,12 @@ const baza = {
     ],
 }
 
-const jishi = document.getElementById('jishi');
+let jishi = document.getElementById('jishi');
 const diametri = document.getElementById('diam');
 const btn = document.getElementById('btn');
 const table = document.getElementById('cxrili');
-const tanrigi = document.getElementById('tanrigi');
 const div = document.getElementById('div');
+const deleteBtn = document.getElementsByClassName('delete-btn');
 
 
 const saxeobebi = [ 
@@ -1873,22 +1873,105 @@ const saxeobebi = [
     {eng: 'soWi', geo: 'სოჭი'},
     {eng: 'Txmela', geo: 'თხმელა'},
     {eng: 'wifeli', geo: 'წიფელი'},
-]
+];
+
+const tanrigistvis = [
+    'აკაცია',
+    'ფიჭვი',
+    'მუხა',
+    'მუხა ქართული',
+    'ნაძვი',
+    'რცხილა',
+    'სოჭი',
+    'თხმელა',
+    'წიფელი'
+];
+
+const btnAdd = document.getElementById('btn-add');
+const tanrigiDiv = document.getElementById('tanrigi-div');
+let tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
+let tanrigiInput = document.querySelectorAll('.tanrigi-input');
+const btnSet = document.getElementById('btn-set');
+
+btnAdd.addEventListener('click', () => {
+    const html = `<div class="tanrigi-box">
+                    <select name="jishi" class="tanrigi-jishi">
+                        <option value="akacia">აკაცია</option>
+                        <option value="fiWvi">ფიჭვი</option>
+                        <option value="muxa">მუხა</option>
+                        <option value="muxaqarTuli">მუხა ქართული</option>
+                        <option value="naZvi">ნაძვი</option>
+                        <option value="rcxila">რცხილა</option>
+                        <option value="soWi">სოჭი</option>
+                        <option value="Txmela">თხმელა</option>
+                        <option value="wifeli">წიფელი</option>
+                    </select>
+                    <input type="text" placeholder="თანრიგი" class='tanrigi-input'>
+                </div>`;
+
+    tanrigiDiv.insertAdjacentHTML('beforeend', html);
+});
+
+let minichebuliTanrigi = [];
+
+btnSet.addEventListener('click', ()=> {
+    tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
+    tanrigiInput = document.querySelectorAll('.tanrigi-input');
+    jishi = document.getElementById('jishi');
+    minichebuliTanrigi = [];
+    jishi.innerHTML = '';
+    
+    if(tanrigiJishi.length === tanrigiInput.length) {
+        for(let i = 0; i < tanrigiJishi.length; i++) {
+            minichebuliTanrigi.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
+        }
+
+        minichebuliTanrigi.forEach(el => {
+            let geotree = '';
+            saxeobebi.forEach(s => {
+                if(el.jishi == s.eng) {
+                    geotree = s.geo;
+                }
+            })
+            const html = `<option value="${el.jishi}">${geotree}</option>`
+            jishi.insertAdjacentHTML('beforeend', html);
+        });
+        
+        btn.disabled = false;
+    }
+    
+    
+});
+
+const treeArray = [];
 
 btn.addEventListener('click', ()=> {
-    const treeGeo = jishi.value;
-    let treeEng = '';
-
+    jishi = document.getElementById('jishi');
+    console.log(jishi.value);
+    const arrLength = treeArray.length;
+    let treeGeo = '';
+    let tanrigi = '';
     saxeobebi.forEach(x => {
-        if(treeGeo === x.geo) {
-            treeEng = x.eng;
+        if(jishi.value === x.eng) {
+            treeGeo = x.geo;
         }
     });
 
-    const treeType = baza[treeEng];
+    minichebuliTanrigi.forEach(y => {
+        if(jishi.value === y.jishi) {
+            tanrigi = y.tanrigi;
+        }
+    });
+
+    console.log(minichebuliTanrigi);
+    console.log(tanrigi);
+    console.log(jishi.value);
+    console.log(treeGeo);
+
+    const treeType = baza[jishi.value];
 
     for(let i = 0; i < treeType.length; i++) {
-        if(diametri.value === treeType[i].diametri && tanrigi.value === treeType[i].tanrigi) {
+        if(diametri.value === treeType[i].diametri && tanrigi === treeType[i].tanrigi) {
             const data = {
                 treeName: treeGeo,
                 diametri: treeType[i].diametri,
@@ -1896,31 +1979,63 @@ btn.addEventListener('click', ()=> {
                 shesha: treeType[i].shesha,
                 gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) * 100) / 100,
             }
-            renderData(data);
-            //console.log(data);
+            treeArray.push(data);
+            renderData(treeArray);
             break;
         } 
+    }
+
+    if(arrLength === treeArray.length) {
+        renderError("ასეთი მონაცემებით ხე არ მოიძებნა");
     }
     
     
 });
 
-let number = 1
-
-function renderData(data) {
-    const html = `
-    <tr>
-        <td>${number++}</td>
-        <td>${data.treeName}</td>
-        <td>${data.diametri}</td>
-        <td>${data.sakmisi}</td>
-        <td>${data.shesha}</td>
-        <td>${data.gasacemi}</td>
-    <tr>
-    `
-    table.insertAdjacentHTML('beforeend', html)
+function renderData(arr) {
+    if(arr) {
+        table.innerHTML = '';
+        div.innerHTML = '';
+        number = 1;
+        for(let i = 0; i < arr.length; i++) {
+            let html = '';
+            if(i != arr.length - 1) {
+                html = `
+                <tr>
+                    <td>${number++}</td>
+                    <td>${arr[i].treeName}</td>
+                    <td>${arr[i].diametri}</td>
+                    <td>${arr[i].sakmisi}</td>
+                    <td>${arr[i].shesha}</td>
+                    <td>${arr[i].gasacemi}</td>
+                    <td></td>
+                <tr>
+                `
+            } else {
+                html = `
+                <tr>
+                    <td>${number++}</td>
+                    <td>${arr[i].treeName}</td>
+                    <td>${arr[i].diametri}</td>
+                    <td>${arr[i].sakmisi}</td>
+                    <td>${arr[i].shesha}</td>
+                    <td>${arr[i].gasacemi}</td>
+                    <td><button class="delete-btn" onClick="deleteEl(${i})" type="submit">-</button></td>
+                <tr>
+                `
+            }
+            
+            table.insertAdjacentHTML('beforeend', html)
+        }
+    }
 }
 
 function renderError(message) {
+    div.innerHTML = '';
 	div.insertAdjacentText("beforeend", message);
+}
+
+function deleteEl(i){
+    treeArray.splice(i, 1);
+    renderData(treeArray);
 }

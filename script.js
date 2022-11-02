@@ -1894,25 +1894,63 @@ let tanrigiInput = document.querySelectorAll('.tanrigi-input');
 const btnSet = document.getElementById('btn-set');
 
 btnAdd.addEventListener('click', () => {
-    const html = `<div class="tanrigi-box">
-                    <select name="jishi" class="tanrigi-jishi">
-                        <option value="akacia">აკაცია</option>
-                        <option value="fiWvi">ფიჭვი</option>
-                        <option value="muxa">მუხა</option>
-                        <option value="muxaqarTuli">მუხა ქართული</option>
-                        <option value="naZvi">ნაძვი</option>
-                        <option value="rcxila">რცხილა</option>
-                        <option value="soWi">სოჭი</option>
-                        <option value="Txmela">თხმელა</option>
-                        <option value="wifeli">წიფელი</option>
-                    </select>
-                    <input type="text" placeholder="თანრიგი" class='tanrigi-input'>
-                </div>`;
+    tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
+    tanrigiInput = document.querySelectorAll('.tanrigi-input');
+    jishi = document.getElementById('jishi');
 
-    tanrigiDiv.insertAdjacentHTML('beforeend', html);
+    selectArray = [];
+    
+    if(tanrigiJishi.length === tanrigiInput.length) {
+        for(let i = 0; i < tanrigiJishi.length; i++) {
+            selectArray.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
+        }
+        selectArray.push({jishi: 'akacia', tanrigi: ''});
+        renderSelectOptions(selectArray);
+    }
 });
 
-let minichebuliTanrigi = [];
+function renderSelectOptions(arr) {
+    if(arr) {
+        tanrigiDiv.innerHTML = '';
+        arr.forEach((el, i) => {
+
+            let treeGeo = '';
+            saxeobebi.forEach(x => {
+                if(el.jishi === x.eng) {
+                    treeGeo = x.geo;
+                }
+            });
+
+            const html = `<div class="tanrigi-box">
+                        <select name="jishi" class="tanrigi-jishi">
+                            <option value="${el.jishi}" selected>${treeGeo}</option>
+                            <option value="akacia">აკაცია</option>
+                            <option value="fiWvi">ფიჭვი</option>
+                            <option value="muxa">მუხა</option>
+                            <option value="muxaqarTuli">მუხა ქართული</option>
+                            <option value="naZvi">ნაძვი</option>
+                            <option value="rcxila">რცხილა</option>
+                            <option value="soWi">სოჭი</option>
+                            <option value="Txmela">თხმელა</option>
+                            <option value="wifeli">წიფელი</option>
+                        </select>
+                        <input type="text" placeholder="თანრიგი" class='tanrigi-input' value='${el.tanrigi}'>
+                        <button id='delete-select' onClick='deleteSelect(${i})'>x</button>
+                    </div>`;
+
+        tanrigiDiv.insertAdjacentHTML('beforeend', html);
+        })
+    }
+}
+
+function deleteSelect(i) {
+    minichebuliTanrigi.splice(i, 1);
+    renderSelectOptions(minichebuliTanrigi);
+}
+
+let minichebuliTanrigi = JSON.parse(localStorage.getItem('tanrigebi'));
+let selectArray = [];
+
 
 btnSet.addEventListener('click', ()=> {
     tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
@@ -1925,8 +1963,14 @@ btnSet.addEventListener('click', ()=> {
         for(let i = 0; i < tanrigiJishi.length; i++) {
             minichebuliTanrigi.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
         }
+        localStorage.setItem('tanrigebi', JSON.stringify(minichebuliTanrigi));
+        renderTanrigi(minichebuliTanrigi);
+    }
+});
 
-        minichebuliTanrigi.forEach(el => {
+function renderTanrigi(arr) {
+    if(arr) {
+        arr.forEach(el => {
             let geotree = '';
             saxeobebi.forEach(s => {
                 if(el.jishi == s.eng) {
@@ -1936,18 +1980,18 @@ btnSet.addEventListener('click', ()=> {
             const html = `<option value="${el.jishi}">${geotree}</option>`
             jishi.insertAdjacentHTML('beforeend', html);
         });
-        
         btn.disabled = false;
     }
-    
-    
-});
+}
 
-const treeArray = [];
+
+let treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+let treeArray = treeArrayFromJSON;
+console.log(JSON.parse(localStorage.getItem('treeArray')))
 
 btn.addEventListener('click', ()=> {
     jishi = document.getElementById('jishi');
-    console.log(jishi.value);
+    //console.log(jishi.value);
     const arrLength = treeArray.length;
     let treeGeo = '';
     let tanrigi = '';
@@ -1963,11 +2007,6 @@ btn.addEventListener('click', ()=> {
         }
     });
 
-    console.log(minichebuliTanrigi);
-    console.log(tanrigi);
-    console.log(jishi.value);
-    console.log(treeGeo);
-
     const treeType = baza[jishi.value];
 
     for(let i = 0; i < treeType.length; i++) {
@@ -1980,7 +2019,10 @@ btn.addEventListener('click', ()=> {
                 gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) * 100) / 100,
             }
             treeArray.push(data);
-            renderData(treeArray);
+            localStorage.setItem('treeArray', JSON.stringify(treeArray));
+            treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+            //console.log(treeArrayFromJSON);
+            renderData(treeArrayFromJSON);
             break;
         } 
     }
@@ -2037,5 +2079,17 @@ function renderError(message) {
 
 function deleteEl(i){
     treeArray.splice(i, 1);
-    renderData(treeArray);
+    localStorage.setItem('treeArray', JSON.stringify(treeArray));
+    treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+    renderData(treeArrayFromJSON);
+    // console.log('JSON', treeArrayFromJSON);
+    // console.log('treeArray', treeArray);
 }
+
+function initialize() {
+    renderData(treeArrayFromJSON);
+    renderTanrigi(minichebuliTanrigi);
+    renderSelectOptions(minichebuliTanrigi);
+}
+
+initialize();

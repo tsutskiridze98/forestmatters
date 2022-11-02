@@ -1989,13 +1989,17 @@ function renderTanrigi(arr) {
 
 
 let treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
-let treeArray = treeArrayFromJSON;
+let treeArray = [];
 console.log(JSON.parse(localStorage.getItem('treeArray')))
 
 btn.addEventListener('click', ()=> {
     jishi = document.getElementById('jishi');
     //console.log(jishi.value);
-    const arrLength = treeArray.length;
+    let arrLength = '';
+    if(treeArray) {
+        arrLength = treeArray.length;
+    }
+  
     let treeGeo = '';
     let tanrigi = '';
     saxeobebi.forEach(x => {
@@ -2020,6 +2024,9 @@ btn.addEventListener('click', ()=> {
                 sakmisi: treeType[i].sakmisi,
                 shesha: treeType[i].shesha,
                 gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) * 100) / 100,
+            }
+            if(treeArrayFromJSON) {
+                treeArray = treeArrayFromJSON;
             }
             treeArray.push(data);
             localStorage.setItem('treeArray', JSON.stringify(treeArray));
@@ -2081,6 +2088,7 @@ function renderError(message) {
 }
 
 function deleteEl(i){
+    treeArray = treeArrayFromJSON;
     treeArray.splice(i, 1);
     localStorage.setItem('treeArray', JSON.stringify(treeArray));
     treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));

@@ -1855,13 +1855,22 @@ const baza = {
     ],
 }
 
+// HTML variables
+
 let jishi = document.getElementById('jishi');
 const diametri = document.getElementById('diam');
 const btn = document.getElementById('btn');
 const table = document.getElementById('cxrili');
-const div = document.getElementById('div');
+const errorDiv = document.getElementById('error');
 const deleteBtn = document.getElementsByClassName('delete-btn');
-
+const btnAdd = document.getElementById('btn-add');
+const tanrigiDiv = document.getElementById('tanrigi-div');
+let tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
+let tanrigiInput = document.querySelectorAll('.tanrigi-input');
+const btnSet = document.getElementById('btn-set');
+const sulLikvidi = document.querySelectorAll('.sul-likvidi');
+const sulVarjidan = document.querySelectorAll('.sul-varjidan');
+const sulGasacemi = document.querySelectorAll('.sul-gasacemi');
 
 const saxeobebi = [ 
     {eng: 'akacia', geo: 'აკაცია'},
@@ -1887,11 +1896,9 @@ const tanrigistvis = [
     'წიფელი'
 ];
 
-const btnAdd = document.getElementById('btn-add');
-const tanrigiDiv = document.getElementById('tanrigi-div');
-let tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
-let tanrigiInput = document.querySelectorAll('.tanrigi-input');
-const btnSet = document.getElementById('btn-set');
+////////////////////////////////////
+//---------FUNCTIONS--------------//
+////////////////////////////////////
 
 btnAdd.addEventListener('click', () => {
     tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
@@ -1909,11 +1916,14 @@ btnAdd.addEventListener('click', () => {
     }
 });
 
+
 function renderSelectOptions(arr) {
+    errorDiv.innerHTML = '';
+    errorDiv.style.display = 'none';
     if(arr) {
         tanrigiDiv.innerHTML = '';
         arr.forEach((el, i) => {
-
+            console.log(el, i);
             let treeGeo = '';
             saxeobebi.forEach(x => {
                 if(el.jishi === x.eng) {
@@ -1921,35 +1931,62 @@ function renderSelectOptions(arr) {
                 }
             });
 
-            const html = `<div class="tanrigi-box">
-                        <select name="jishi" class="tanrigi-jishi">
-                            <option value="${el.jishi}" selected>${treeGeo}</option>
-                            <option value="akacia">აკაცია</option>
-                            <option value="fiWvi">ფიჭვი</option>
-                            <option value="muxa">მუხა</option>
-                            <option value="muxaqarTuli">მუხა ქართული</option>
-                            <option value="naZvi">ნაძვი</option>
-                            <option value="rcxila">რცხილა</option>
-                            <option value="soWi">სოჭი</option>
-                            <option value="Txmela">თხმელა</option>
-                            <option value="wifeli">წიფელი</option>
-                        </select>
-                        <input type="text" placeholder="თანრიგი" class='tanrigi-input' value='${el.tanrigi}'>
-                        <button id='delete-select' onClick='deleteSelect(${i})'>x</button>
-                    </div>`;
+            const html = `<tr class="tanrigi-box">
+                            <td>
+                                <select class="form-select form-select-sm">
+                                    <option selected>თესლითი</option>
+                                    <option value="1">ამონაყრითი</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="jishi" class="tanrigi-jishi form-select form-select-sm">
+                                    <option value="${el.jishi}" selected>${treeGeo}</option>
+                                    <option value="akacia">აკაცია</option>
+                                    <option value="fiWvi">ფიჭვი</option>
+                                    <option value="muxa">მუხა</option>
+                                    <option value="muxaqarTuli">მუხა ქართული</option>
+                                    <option value="naZvi">ნაძვი</option>
+                                    <option value="rcxila">რცხილა</option>
+                                    <option value="soWi">სოჭი</option>
+                                    <option value="Txmela">თხმელა</option>
+                                    <option value="wifeli">წიფელი</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" placeholder="თანრიგი" class='tanrigi-input form-control form-control-sm' value='${el.tanrigi}'>
+                            </td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" id='delete-select' onClick='deleteSelect(${i})'>x</button>
+                            </td>
+                        </tr>`
 
         tanrigiDiv.insertAdjacentHTML('beforeend', html);
         })
     }
 }
 
-function deleteSelect(i) {
-    minichebuliTanrigi.splice(i, 1);
-    renderSelectOptions(minichebuliTanrigi);
+function deleteSelect(index) {
+    errorDiv.innerHTML = '';
+    errorDiv.style.display = 'none';
+    tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
+    tanrigiInput = document.querySelectorAll('.tanrigi-input');
+    jishi = document.getElementById('jishi');
+
+    selectArray = [];
+    
+    if(tanrigiJishi.length === tanrigiInput.length) {
+        for(let i = 0; i < tanrigiJishi.length; i++) {
+            if(i !== index) {
+                selectArray.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
+            }
+        }
+        renderSelectOptions(selectArray);
+    }
 }
 
 let minichebuliTanrigi = JSON.parse(localStorage.getItem('tanrigebi'));
-let selectArray = [];
+let selectArray = minichebuliTanrigi;
 
 
 btnSet.addEventListener('click', ()=> {
@@ -1969,6 +2006,8 @@ btnSet.addEventListener('click', ()=> {
 });
 
 function renderTanrigi(arr) {
+    errorDiv.innerHTML = '';
+    errorDiv.style.display = 'none';
     if(arr) {
         arr.forEach(el => {
             let geotree = '';
@@ -1990,7 +2029,7 @@ function renderTanrigi(arr) {
 
 let treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
 let treeArray = [];
-console.log(JSON.parse(localStorage.getItem('treeArray')))
+//console.log(JSON.parse(localStorage.getItem('treeArray')))
 
 btn.addEventListener('click', ()=> {
     jishi = document.getElementById('jishi');
@@ -2033,6 +2072,7 @@ btn.addEventListener('click', ()=> {
             treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
             //console.log(treeArrayFromJSON);
             renderData(treeArrayFromJSON);
+            renderJami(treeArrayFromJSON);
             break;
         } 
     }
@@ -2044,10 +2084,34 @@ btn.addEventListener('click', ()=> {
     
 });
 
+function renderJami(arr) {
+    if(arr) {
+        let likvidi = 0;
+        let gasacemi = 0;
+        let varjidan = 0;
+
+        arr.forEach(x => {
+            likvidi = Math.round((Number(likvidi) + Number(x.sakmisi)) * 100) / 100;
+            gasacemi = Math.round((Number(gasacemi) + Number(x.gasacemi)) * 100) / 100;
+            varjidan = Math.round((Number(varjidan) + Number(x.shesha)) * 100) / 100;
+        });
+        sulLikvidi.forEach(l => {
+            l.textContent = likvidi;
+        });
+        sulGasacemi.forEach(g => {
+            g.textContent = gasacemi;
+        });
+        sulVarjidan.forEach(v => {
+            v.textContent = varjidan;
+        });
+    }
+}
+
 function renderData(arr) {
     if(arr) {
         table.innerHTML = '';
-        div.innerHTML = '';
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
         number = 1;
         for(let i = 0; i < arr.length; i++) {
             let html = '';
@@ -2061,6 +2125,8 @@ function renderData(arr) {
                     <td>${arr[i].shesha}</td>
                     <td>${arr[i].gasacemi}</td>
                     <td></td>
+                    <td></td>
+                    <td></td>
                 <tr>
                 `
             } else {
@@ -2072,7 +2138,9 @@ function renderData(arr) {
                     <td>${arr[i].sakmisi}</td>
                     <td>${arr[i].shesha}</td>
                     <td>${arr[i].gasacemi}</td>
-                    <td><button class="delete-btn" onClick="deleteEl(${i})" type="submit">-</button></td>
+                    <td></td>
+                    <td></td>
+                    <td><button type="button" class="btn btn-danger" onClick="deleteEl(${i})">წაშლა</button></td>
                 <tr>
                 `
             }
@@ -2083,8 +2151,9 @@ function renderData(arr) {
 }
 
 function renderError(message) {
-    div.innerHTML = '';
-	div.insertAdjacentText("beforeend", message);
+    errorDiv.style.display = 'block';
+    errorDiv.innerHTML = '';
+	errorDiv.insertAdjacentText("beforeend", message);
 }
 
 function deleteEl(i){
@@ -2093,6 +2162,7 @@ function deleteEl(i){
     localStorage.setItem('treeArray', JSON.stringify(treeArray));
     treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
     renderData(treeArrayFromJSON);
+    renderJami(treeArrayFromJSON);
     // console.log('JSON', treeArrayFromJSON);
     // console.log('treeArray', treeArray);
 }
@@ -2101,6 +2171,7 @@ function initialize() {
     renderData(treeArrayFromJSON);
     renderTanrigi(minichebuliTanrigi);
     renderSelectOptions(minichebuliTanrigi);
+    renderJami(treeArrayFromJSON);
 }
 
 initialize();

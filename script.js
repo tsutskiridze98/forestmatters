@@ -1871,6 +1871,9 @@ const btnSet = document.getElementById('btn-set');
 const sulLikvidi = document.querySelectorAll('.sul-likvidi');
 const sulVarjidan = document.querySelectorAll('.sul-varjidan');
 const sulGasacemi = document.querySelectorAll('.sul-gasacemi');
+const modalContent = document.querySelector('.modal-content');
+const editDiametri = document.getElementById('edit-diametri');
+let editJishi = document.getElementById('edit-jishi');
 
 const saxeobebi = [ 
     {eng: 'akacia', geo: 'აკაცია'},
@@ -2059,6 +2062,7 @@ btn.addEventListener('click', ()=> {
         if(diametri.value === treeType[i].diametri && tanrigi === treeType[i].tanrigi) {
             const data = {
                 treeName: treeGeo,
+                tanrigi: tanrigi,
                 diametri: treeType[i].diametri,
                 sakmisi: treeType[i].sakmisi,
                 shesha: treeType[i].shesha,
@@ -2126,7 +2130,7 @@ function renderData(arr) {
                     <td>${arr[i].gasacemi}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning btn-sm" onClick="editEl(${i})">რედაქტირება</button></td>
                 <tr>
                 `
             } else {
@@ -2167,11 +2171,114 @@ function deleteEl(i){
     // console.log('treeArray', treeArray);
 }
 
+function editEl(i) {
+    treeArray = treeArrayFromJSON;
+    console.log(treeArray[i]);
+    const index = i;
+    const number = i + 1;
+
+    let treeEng = '';
+
+    saxeobebi.forEach(x => {
+        if( treeArray[i].treeName === x.geo) {
+            treeEng = x.eng;
+        }
+    });
+    modalContent.innerHTML = `
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">რედაქტირება #${number} ${treeArray[i].treeName}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row gy-2 px-5">
+                                    <div class="col-12">
+                                        <select name="jishi" id='edit-jishi' class="form-select form-select-sm">
+                                            <option value="${treeEng}" selected>${treeArray[i].treeName}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" id='edit-diametri' placeholder="დიამეტრი" class='form-control form-control-sm' value='${treeArray[i].diametri}'>
+                                    </div>
+                                    <div class="col-12">
+
+                                    </div>
+                                    <div class="col-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">დახურვა</button>
+                                <button type="button" class="btn btn-primary" onClick='saveEdit(${index})' data-bs-dismiss="modal">ცვლილებების შენახვა</button>
+                            </div>
+
+                            
+                                `;
+        editJishi = document.getElementById('edit-jishi');
+        console.log(minichebuliTanrigi)
+        minichebuliTanrigi.forEach(el => {
+            if(treeEng !== el.jishi) {
+                let geotree = '';
+                saxeobebi.forEach(s => {
+                    if(el.jishi == s.eng) {
+                        geotree = s.geo;
+                    }
+                })
+                const htmlE = `<option value="${el.jishi}">${geotree}</option>`
+                editJishi.insertAdjacentHTML('beforeend', htmlE);
+            }
+        });
+}
+
+function saveEdit(index) {
+    const diametri = document.getElementById('edit-diametri');
+    const treeEng = document.getElementById('edit-jishi');
+    let treeGeo = '';
+    let tanrigi = '';
+
+    saxeobebi.forEach(x => {
+        if(treeEng.value === x.eng) {
+            treeGeo = x.geo;
+        }
+    });
+
+    minichebuliTanrigi.forEach(y => {
+        if(treeEng.value === y.jishi) {
+            tanrigi = y.tanrigi;
+        }
+    });
+
+    const treeType = baza[treeEng.value];
+    console.log(treeType);
+
+    for(let i = 0; i < treeType.length; i++) {
+        if(diametri.value === treeType[i].diametri && tanrigi === treeType[i].tanrigi) {
+            const data = {
+                treeName: treeGeo,
+                tanrigi: tanrigi,
+                diametri: treeType[i].diametri,
+                sakmisi: treeType[i].sakmisi,
+                shesha: treeType[i].shesha,
+                gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) * 100) / 100,
+            }
+            console.log(treeArray);
+            console.log(index);
+            treeArray[index] = data;
+            localStorage.setItem('treeArray', JSON.stringify(treeArray));
+            treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+            console.log("json", treeArrayFromJSON);
+            renderData(treeArrayFromJSON);
+            renderJami(treeArrayFromJSON);
+        }
+    }
+}
+
 function initialize() {
     renderData(treeArrayFromJSON);
     renderTanrigi(minichebuliTanrigi);
     renderSelectOptions(minichebuliTanrigi);
     renderJami(treeArrayFromJSON);
+    console.log("json", treeArrayFromJSON);
 }
 
 initialize();

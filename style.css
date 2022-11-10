@@ -6,3 +6,8 @@
     color: red;
     border: 1px solid red;
 }
+
+body {
+    position: relative;
+    z-index: 1000;
+}

@@ -1874,6 +1874,10 @@ const sulGasacemi = document.querySelectorAll('.sul-gasacemi');
 const modalContent = document.querySelector('.modal-content');
 const editDiametri = document.getElementById('edit-diametri');
 let editJishi = document.getElementById('edit-jishi');
+let editShenishvna = document.getElementById('edit-shenishvna');
+let editMoculoba = document.getElementById('edit-moculoba');
+const shenishvna = document.getElementById('shenishvna');
+const moculoba = document.getElementById('moculoba');
 
 const saxeobebi = [ 
     {eng: 'akacia', geo: 'აკაცია'},
@@ -2034,6 +2038,9 @@ let treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
 let treeArray = [];
 //console.log(JSON.parse(localStorage.getItem('treeArray')))
 
+const shenishvnebi = ['ფაუტი', 'ზეხმელი', 'ხმობადი', 'გადაბერებული', 'მრუდეღეროიანი', 'თავღორი', 'ძირიდან', 'განტოტილი', 'დაავადებული', 'ფუღურო', 'ტეხილი', ];
+const moculobebi = ['1', '1/2', '1/3', '1/4']
+
 btn.addEventListener('click', ()=> {
     jishi = document.getElementById('jishi');
     //console.log(jishi.value);
@@ -2064,13 +2071,18 @@ btn.addEventListener('click', ()=> {
                 treeName: treeGeo,
                 tanrigi: tanrigi,
                 diametri: treeType[i].diametri,
-                sakmisi: treeType[i].sakmisi,
-                shesha: treeType[i].shesha,
-                gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) * 100) / 100,
+                sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(moculoba.value) + 1)) * 1000) / 1000,
+                shesha: Math.round((Number(treeType[i].shesha) / (Number(moculoba.value) + 1)) * 1000) / 1000,
+                gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) / (Number(moculoba.value) + 1) * 1000) / 1000,
+                shenishvna: shenishvnebi[shenishvna.value],
+                moculoba: moculobebi[moculoba.value],
             }
             if(treeArrayFromJSON) {
                 treeArray = treeArrayFromJSON;
             }
+            // console.log(data);
+            // console.log(shenishvna.innerText);
+            // console.log(moculoba.innerText);
             treeArray.push(data);
             localStorage.setItem('treeArray', JSON.stringify(treeArray));
             treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
@@ -2119,17 +2131,24 @@ function renderData(arr) {
         number = 1;
         for(let i = 0; i < arr.length; i++) {
             let html = '';
+            let moc = '';
+
+            if(arr[i].moculoba != 1) {
+                moc = arr[i].moculoba;
+            }
+
             if(i != arr.length - 1) {
+                
                 html = `
                 <tr>
                     <td>${number++}</td>
-                    <td>${arr[i].treeName}</td>
+                    <td>${arr[i].treeName} ${moc}</td>
                     <td>${arr[i].diametri}</td>
                     <td>${arr[i].sakmisi}</td>
                     <td>${arr[i].shesha}</td>
                     <td>${arr[i].gasacemi}</td>
-                    <td></td>
-                    <td></td>
+                    <td>${arr[i].shenishvna}</td>
+                    <td>${arr[i].moculoba}</td>
                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning btn-sm" onClick="editEl(${i})">რედაქტირება</button></td>
                 <tr>
                 `
@@ -2137,13 +2156,13 @@ function renderData(arr) {
                 html = `
                 <tr>
                     <td>${number++}</td>
-                    <td>${arr[i].treeName}</td>
+                    <td>${arr[i].treeName} ${moc}</td>
                     <td>${arr[i].diametri}</td>
                     <td>${arr[i].sakmisi}</td>
                     <td>${arr[i].shesha}</td>
                     <td>${arr[i].gasacemi}</td>
-                    <td></td>
-                    <td></td>
+                    <td>${arr[i].shenishvna}</td>
+                    <td>${arr[i].moculoba}</td>
                     <td><button type="button" class="btn btn-danger" onClick="deleteEl(${i})">წაშლა</button></td>
                 <tr>
                 `
@@ -2184,6 +2203,25 @@ function editEl(i) {
             treeEng = x.eng;
         }
     });
+
+    let shenishvnaValue = '';
+
+    shenishvnebi.forEach((x, ind) => {
+        if(treeArray[i].shenishvna === x) {
+            shenishvnaValue = ind;
+        }
+    });
+
+    let moculobaValue = '';
+
+    moculobebi.forEach((x, ind) => {
+        if(treeArray[i].moculoba === x) {
+            moculobaValue = ind;
+        }
+    })
+
+    console.log(shenishvnaValue);
+
     modalContent.innerHTML = `
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">რედაქტირება #${number} ${treeArray[i].treeName}</h5>
@@ -2200,10 +2238,14 @@ function editEl(i) {
                                         <input type="text" id='edit-diametri' placeholder="დიამეტრი" class='form-control form-control-sm' value='${treeArray[i].diametri}'>
                                     </div>
                                     <div class="col-12">
-
+                                        <select id='edit-shenishvna' class="form-select form-select-sm">
+                                            <option value="${shenishvnaValue}" selected>${treeArray[i].shenishvna}</option>
+                                        </select>
                                     </div>
                                     <div class="col-12">
-
+                                        <select id='edit-moculoba' class="form-select form-select-sm">
+                                            <option value="${moculobaValue}" selected>${treeArray[i].moculoba}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -2215,6 +2257,9 @@ function editEl(i) {
                             
                                 `;
         editJishi = document.getElementById('edit-jishi');
+        editShenishvna = document.getElementById('edit-shenishvna');
+        editMoculoba = document.getElementById('edit-moculoba');
+
         console.log(minichebuliTanrigi)
         minichebuliTanrigi.forEach(el => {
             if(treeEng !== el.jishi) {
@@ -2224,15 +2269,32 @@ function editEl(i) {
                         geotree = s.geo;
                     }
                 })
-                const htmlE = `<option value="${el.jishi}">${geotree}</option>`
-                editJishi.insertAdjacentHTML('beforeend', htmlE);
+                const htmlOptions = `<option value="${el.jishi}">${geotree}</option>`
+                editJishi.insertAdjacentHTML('beforeend', htmlOptions);
             }
         });
+
+        shenishvnebi.forEach((el, ind) => {
+            if(treeArray[i].shenishvna !== el) {
+                const htmlShenishvnebi = `<option value="${ind}">${el}</option>`;
+                editShenishvna.insertAdjacentHTML('beforeend', htmlShenishvnebi);
+            }
+        });
+
+        moculobebi.forEach((el, ind) => {
+            if(treeArray[i].moculoba !== el) {
+                const htmlMoculoba = `<option value="${ind}">${el}</option>`;
+                editMoculoba.insertAdjacentHTML('beforeend', htmlMoculoba);
+            }
+        })
 }
 
 function saveEdit(index) {
     const diametri = document.getElementById('edit-diametri');
     const treeEng = document.getElementById('edit-jishi');
+    const shenishvnaEdited = document.getElementById('edit-shenishvna');
+    const moculobaEdited = document.getElementById('edit-moculoba');
+
     let treeGeo = '';
     let tanrigi = '';
 
@@ -2257,9 +2319,11 @@ function saveEdit(index) {
                 treeName: treeGeo,
                 tanrigi: tanrigi,
                 diametri: treeType[i].diametri,
-                sakmisi: treeType[i].sakmisi,
-                shesha: treeType[i].shesha,
-                gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) * 100) / 100,
+                sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(moculobaEdited.value) + 1)) * 1000) / 1000,
+                shesha: Math.round((Number(treeType[i].shesha) / (Number(moculobaEdited.value) + 1)) * 1000) / 1000,
+                gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) / (Number(moculobaEdited.value) + 1) * 1000) / 1000,
+                shenishvna: shenishvnebi[shenishvnaEdited.value],
+                moculoba: moculobebi[moculobaEdited.value],
             }
             console.log(treeArray);
             console.log(index);
@@ -2278,7 +2342,16 @@ function initialize() {
     renderTanrigi(minichebuliTanrigi);
     renderSelectOptions(minichebuliTanrigi);
     renderJami(treeArrayFromJSON);
-    console.log("json", treeArrayFromJSON);
+
+    moculobebi.forEach((el, ind) => {
+        const htmlMoculobaOptions = `<option value="${ind}">${el}</option>`;
+        moculoba.insertAdjacentHTML('beforeend', htmlMoculobaOptions);
+    });
+
+    shenishvnebi.forEach((el, ind) => {
+        const htmlShenishvnaOptions = `<option >${el}</option>`;
+        shenishvna.insertAdjacentHTML('beforeend', htmlShenishvnaOptions);
+    });
 }
 
 initialize();

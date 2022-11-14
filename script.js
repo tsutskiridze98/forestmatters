@@ -2349,7 +2349,7 @@ function initialize() {
     });
 
     shenishvnebi.forEach((el, ind) => {
-        const htmlShenishvnaOptions = `<option >${el}</option>`;
+        const htmlShenishvnaOptions = `<option value="${ind}">${el}</option>`;
         shenishvna.insertAdjacentHTML('beforeend', htmlShenishvnaOptions);
     });
 }

@@ -2012,6 +2012,60 @@ btnSet.addEventListener('click', ()=> {
         localStorage.setItem('tanrigebi', JSON.stringify(minichebuliTanrigi));
         renderTanrigi(minichebuliTanrigi);
     }
+    if(treeArrayFromJSON) {
+        treeArray = treeArrayFromJSON;
+
+        treeArray.forEach((jish, indexi) => {
+            minichebuliTanrigi.forEach(tanrigi => {
+                if(jish.treeEng === tanrigi.jishi && jish.tanrigi != tanrigi.tanrigi) {
+                    ///////////////////////////////////////////////////
+                        const treeType = baza[jish.treeEng];
+
+                        const treeGeorgian = jish.treeName;
+                        const treeEnglish = jish.treeEng;
+                        const treeShenishvna = jish.shenishvna;
+                        const treeMoculoba = jish.moculoba;
+                        const treeTanrigi = tanrigi.tanrigi;
+                        const treeDiametri = jish.diametri;
+                        let treeMoculobaValue = '';
+                        moculobebi.forEach((el, ind) => {
+                            if(el === treeMoculoba) {
+                                treeMoculobaValue = ind;
+                            }
+                        })
+
+                        for(let i = 0; i < treeType.length; i++) {
+                            if(treeDiametri === treeType[i].diametri && treeTanrigi === treeType[i].tanrigi) {
+                                const data = {
+                                    treeName: treeGeorgian,
+                                    treeEng: treeEnglish,
+                                    tanrigi: treeTanrigi,
+                                    diametri: treeType[i].diametri,
+                                    sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(treeMoculobaValue) + 1)) * 1000) / 1000,
+                                    shesha: Math.round((Number(treeType[i].shesha) / (Number(treeMoculobaValue) + 1)) * 1000) / 1000,
+                                    gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) / (Number(treeMoculobaValue) + 1) * 1000) / 1000,
+                                    shenishvna: treeShenishvna,
+                                    moculoba: treeMoculoba,
+                                }
+                                // console.log(treeArray);
+                                //console.log(indexi, jish);
+                                treeArray[indexi] = data;
+                            }
+                        }
+
+
+                    /////////////////////////////////////////////
+                }
+            })
+        })
+        localStorage.setItem('treeArray', JSON.stringify(treeArray));
+        treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+        
+        renderData(treeArrayFromJSON);
+        renderJami(treeArrayFromJSON);
+        // console.log('treeArray', treeArray);
+        // console.log("json", treeArrayFromJSON);
+    }
 });
 
 function renderTanrigi(arr) {
@@ -2071,6 +2125,7 @@ btn.addEventListener('click', ()=> {
         if(diametri.value === treeType[i].diametri && tanrigi === treeType[i].tanrigi) {
             const data = {
                 treeName: treeGeo,
+                treeEng: jishi.value,
                 tanrigi: tanrigi,
                 diametri: treeType[i].diametri,
                 sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(moculoba.value) + 1)) * 1000) / 1000,
@@ -2082,7 +2137,7 @@ btn.addEventListener('click', ()=> {
             if(treeArrayFromJSON) {
                 treeArray = treeArrayFromJSON;
             }
-            // console.log(data);
+            console.log(data);
             // console.log(shenishvna.innerText);
             // console.log(moculoba.innerText);
             treeArray.push(data);
@@ -2109,9 +2164,9 @@ function renderJami(arr) {
         let varjidan = 0;
 
         arr.forEach(x => {
-            likvidi = Math.round((Number(likvidi) + Number(x.sakmisi)) * 100) / 100;
-            gasacemi = Math.round((Number(gasacemi) + Number(x.gasacemi)) * 100) / 100;
-            varjidan = Math.round((Number(varjidan) + Number(x.shesha)) * 100) / 100;
+            likvidi = Math.round((Number(likvidi) + Number(x.sakmisi)) * 1000) / 1000;
+            gasacemi = Math.round((Number(gasacemi) + Number(x.gasacemi)) * 1000) / 1000;
+            varjidan = Math.round((Number(varjidan) + Number(x.shesha)) * 1000) / 1000;
         });
         sulLikvidi.forEach(l => {
             l.textContent = likvidi;
@@ -2324,6 +2379,7 @@ function saveEdit(index) {
         if(diametri.value === treeType[i].diametri && tanrigi === treeType[i].tanrigi) {
             const data = {
                 treeName: treeGeo,
+                treeEng: treeEng.value,
                 tanrigi: tanrigi,
                 diametri: treeType[i].diametri,
                 sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(moculobaEdited.value) + 1)) * 1000) / 1000,
@@ -2359,6 +2415,9 @@ function initialize() {
         const htmlShenishvnaOptions = `<option value="${el}"></option>`;
         shenishvna.insertAdjacentHTML('beforeend', htmlShenishvnaOptions);
     });
+
+    // console.log('treeArray', treeArray);
+    // console.log("json", treeArrayFromJSON);
 }
 
 initialize();

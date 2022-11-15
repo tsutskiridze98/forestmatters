@@ -2084,7 +2084,7 @@ function renderTanrigi(arr) {
         });
         btn.disabled = false;
     }
-    if(arr.length == 0 ) {
+    if(arr) {
         btn.disabled = true;
     }
 }

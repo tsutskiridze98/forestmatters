@@ -1875,8 +1875,10 @@ const modalContent = document.querySelector('.modal-content');
 const editDiametri = document.getElementById('edit-diametri');
 let editJishi = document.getElementById('edit-jishi');
 let editShenishvna = document.getElementById('edit-shenishvna');
+let editShenishvnaInput = document.getElementById('edit-shenishvna-input');
 let editMoculoba = document.getElementById('edit-moculoba');
 const shenishvna = document.getElementById('shenishvna');
+const shenishvnaInput = document.getElementById('shenishvna-input');
 const moculoba = document.getElementById('moculoba');
 
 const saxeobebi = [ 
@@ -2074,7 +2076,7 @@ btn.addEventListener('click', ()=> {
                 sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(moculoba.value) + 1)) * 1000) / 1000,
                 shesha: Math.round((Number(treeType[i].shesha) / (Number(moculoba.value) + 1)) * 1000) / 1000,
                 gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) / (Number(moculoba.value) + 1) * 1000) / 1000,
-                shenishvna: shenishvnebi[shenishvna.value],
+                shenishvna: shenishvnaInput.value,
                 moculoba: moculobebi[moculoba.value],
             }
             if(treeArrayFromJSON) {
@@ -2204,13 +2206,13 @@ function editEl(i) {
         }
     });
 
-    let shenishvnaValue = '';
+    //let shenishvnaValue = '';
 
-    shenishvnebi.forEach((x, ind) => {
-        if(treeArray[i].shenishvna === x) {
-            shenishvnaValue = ind;
-        }
-    });
+    // shenishvnebi.forEach((x, ind) => {
+    //     if(treeArray[i].shenishvna === x) {
+    //         shenishvnaValue = ind;
+    //     }
+    // });
 
     let moculobaValue = '';
 
@@ -2220,7 +2222,7 @@ function editEl(i) {
         }
     })
 
-    console.log(shenishvnaValue);
+    //console.log(shenishvnaValue);
 
     modalContent.innerHTML = `
                             <div class="modal-header">
@@ -2238,9 +2240,10 @@ function editEl(i) {
                                         <input type="text" id='edit-diametri' placeholder="დიამეტრი" class='form-control form-control-sm' value='${treeArray[i].diametri}'>
                                     </div>
                                     <div class="col-12">
-                                        <select id='edit-shenishvna' class="form-select form-select-sm">
-                                            <option value="${shenishvnaValue}" selected>${treeArray[i].shenishvna}</option>
-                                        </select>
+                                        <input list="edit-shenishvna" id='edit-shenishvna-input'  class='form-control form-control-sm'>
+                                        <datalist id='edit-shenishvna'>
+                                            
+                                        </datalist>
                                     </div>
                                     <div class="col-12">
                                         <select id='edit-moculoba' class="form-select form-select-sm">
@@ -2258,9 +2261,10 @@ function editEl(i) {
                                 `;
         editJishi = document.getElementById('edit-jishi');
         editShenishvna = document.getElementById('edit-shenishvna');
+        editShenishvnaInput = document.getElementById('edit-shenishvna-input');
         editMoculoba = document.getElementById('edit-moculoba');
 
-        console.log(minichebuliTanrigi)
+        //console.log(minichebuliTanrigi)
         minichebuliTanrigi.forEach(el => {
             if(treeEng !== el.jishi) {
                 let geotree = '';
@@ -2274,9 +2278,11 @@ function editEl(i) {
             }
         });
 
+        editShenishvnaInput.value = treeArray[i].shenishvna;
+
         shenishvnebi.forEach((el, ind) => {
             if(treeArray[i].shenishvna !== el) {
-                const htmlShenishvnebi = `<option value="${ind}">${el}</option>`;
+                const htmlShenishvnebi = `<option value="${el}">`;
                 editShenishvna.insertAdjacentHTML('beforeend', htmlShenishvnebi);
             }
         });
@@ -2293,6 +2299,7 @@ function saveEdit(index) {
     const diametri = document.getElementById('edit-diametri');
     const treeEng = document.getElementById('edit-jishi');
     const shenishvnaEdited = document.getElementById('edit-shenishvna');
+    const shenishvnaInputEdited = document.getElementById('edit-shenishvna-input');
     const moculobaEdited = document.getElementById('edit-moculoba');
 
     let treeGeo = '';
@@ -2322,7 +2329,7 @@ function saveEdit(index) {
                 sakmisi: Math.round((Number(treeType[i].sakmisi) / (Number(moculobaEdited.value) + 1)) * 1000) / 1000,
                 shesha: Math.round((Number(treeType[i].shesha) / (Number(moculobaEdited.value) + 1)) * 1000) / 1000,
                 gasacemi: Math.round((Number(treeType[i].shesha) + Number(treeType[i].sakmisi)) / (Number(moculobaEdited.value) + 1) * 1000) / 1000,
-                shenishvna: shenishvnebi[shenishvnaEdited.value],
+                shenishvna: shenishvnaInputEdited.value,
                 moculoba: moculobebi[moculobaEdited.value],
             }
             console.log(treeArray);
@@ -2348,8 +2355,8 @@ function initialize() {
         moculoba.insertAdjacentHTML('beforeend', htmlMoculobaOptions);
     });
 
-    shenishvnebi.forEach((el, ind) => {
-        const htmlShenishvnaOptions = `<option value="${ind}">${el}</option>`;
+    shenishvnebi.forEach((el) => {
+        const htmlShenishvnaOptions = `<option value="${el}"></option>`;
         shenishvna.insertAdjacentHTML('beforeend', htmlShenishvnaOptions);
     });
 }

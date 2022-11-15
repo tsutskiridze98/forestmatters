@@ -409,24 +409,28 @@
             
                     <div class="row py-5">
                         <div class="col">
+                            <label for="jishi" class="form-label">ხის ჯიში:</label>
                             <select name="trees" id="jishi" class="form-select form-select-sm">
                             </select>
                         </div>
                         <div class="col">
+                            <label for="diam" class="form-label">დიამეტრი:</label>
                             <input class="form-control form-control-sm" id="diam" type="text" placeholder="დიამეტრი">
                         </div>
                         <div class="col"> 
-                            <select name="trees" id="shenishvna" class="form-select form-select-sm">
-                            </select>
+                            <label for="shenishvna-input" class="form-label">შენიშვნა:</label>
+                            <input list="shenishvna" id="shenishvna-input" class="form-control form-control-sm" placeholder="შენიშვნა"/>
+                            <datalist name="trees" id="shenishvna">
+                            </datalist>
                         </div>
                         <div class="col">
+                            <label for="moculoba" class="form-label">მოცულობა:</label>
                             <select name="trees" id="moculoba" class="form-select form-select-sm">
                             </select>
                         </div>
                         <div class="col">
                             <button id="btn" disabled type="button" class="btn btn-success">დამატება</button>
                         </div>
-                        <div class="col-3"></div>
                         
                     </div>
 

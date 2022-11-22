@@ -2082,10 +2082,6 @@ function renderTanrigi(arr) {
             const html = `<option value="${el.jishi}">${geotree}</option>`
             jishi.insertAdjacentHTML('beforeend', html);
         });
-        btn.disabled = false;
-    }
-    if(arr) {
-        btn.disabled = true;
     }
 }
 

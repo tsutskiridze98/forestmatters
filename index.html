@@ -149,7 +149,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <input type="text" class="form-control gps-coordinante">
+                                        <input type="text" class="form-control gps-coordinate">
                                     </div>
 
                                     <div class="col text-end">
@@ -157,7 +157,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <input type="text" class="form-control gps-coordinante">
+                                        <input type="text" class="form-control gps-coordinate">
                                     </div>
 
                                 </div>
@@ -170,7 +170,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <input type="text" class="form-control gps-coordinante">
+                                        <input type="text" class="form-control gps-coordinate">
                                     </div>
 
                                     <div class="col text-end">
@@ -178,7 +178,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <input type="text" class="form-control gps-coordinante">
+                                        <input type="text" class="form-control gps-coordinate">
                                     </div>
 
                                 </div>
@@ -210,81 +210,81 @@
                                         <tr>
                                             <th>შემადგენლობა</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>ექსპოზიცია</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>დაქანება</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>ლიტერის ფართობი (ჰა)</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>პროგნოზული მარაგი</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>სიხშირე</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>ხნოვანება</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>აღმონაცენ-მოზარდი</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>ქვეტყე (%)-მოზარდი</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
 
                                         <tr>
                                             <th>რეკომენდაცია</th>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-tket"></td>
 
-                                            <td></td>
+                                            <td><input type="text" class="form-control tax-liter-factobrivi"></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -585,19 +585,15 @@
                          aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <!-- <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                                </div> -->
+                                
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <button type="button" id="render" class="btn btn-sm btn-success">render</button>
                     </div>
                 </div>
 
@@ -614,7 +610,7 @@
                         მართვის ორგანო
                     </div>
 
-                    <div class="col-10 border-bottom border-dark border-2"></div>
+                    <div class="col-10 border-bottom border-dark border-2 text-center" id="aqti-martvis-organo"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -622,13 +618,13 @@
                         სატყეო უბანი
                     </div>
 
-                    <div class="col-5 border-bottom border-dark"></div>
+                    <div class="col-5 border-bottom border-dark text-center" id="aqti-satkeo-ubani"></div>
 
                     <div class="col-2 text-center">
                         სატყეო
                     </div>
 
-                    <div class="col-3 border-bottom border-dark"></div>
+                    <div class="col-3 border-bottom border-dark text-center" id="aqti-satkeo"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -637,13 +633,13 @@
                         კვარტალი #
                     </div>
 
-                    <div class="col-1 border-bottom border-dark"></div>
+                    <div class="col-1 border-bottom border-dark text-center" id="aqti-kvartali"></div>
 
                     <div class="col-2 text-end">
                         ლიტერი #
                     </div>
 
-                    <div class="col-1 border-bottom border-dark"></div>
+                    <div class="col-1 border-bottom border-dark text-center" id="aqti-literi"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -655,7 +651,7 @@
                         1) X-
                     </div>
 
-                    <div class="col-3 border-bottom border-dark">
+                    <div class="col-3 border-bottom border-dark text-center" id="aqti-x1">
 
                     </div>
 
@@ -663,7 +659,7 @@
                         Y-
                     </div>
 
-                    <div class="col-3 border-bottom border-dark">
+                    <div class="col-3 border-bottom border-dark text-center" id="aqti-y1">
 
                     </div>
                 </div>
@@ -675,7 +671,7 @@
                         2) X-
                     </div>
 
-                    <div class="col-3 border-bottom border-dark">
+                    <div class="col-3 border-bottom border-dark text-center" id="aqti-x2">
 
                     </div>
 
@@ -683,7 +679,7 @@
                         Y-
                     </div>
 
-                    <div class="col-3 border-bottom border-dark">
+                    <div class="col-3 border-bottom border-dark text-center" id="aqti-y2">
 
                     </div>
                 </div>
@@ -693,7 +689,7 @@
                         ჭრის სახე
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="aqti-tchris-sakhe"></div>
                 </div>
 
                 <h2 class="fs-5 text-center mt-5">
@@ -709,19 +705,19 @@
                         შემადგენლობა
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tax-liter-tke-shemadgenloba"></div>
 
                     <div class="col-2 text-end">
                         ექსპოზიცია
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tax-liter-tke-exposition"></div>
 
                     <div class="col-2 text-end">
                         დაქანება
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tax-liter-tke-daqaneba"></div>
 
                 </div>
 
@@ -734,19 +730,19 @@
                         შემადგენლობა
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tax-liter-faqtobrivi-shemadgenloba"></div>
 
                     <div class="col-2 text-end">
                         ექსპოზიცია
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tax-liter-faqtobrivi-exposition"></div>
 
                     <div class="col-2 text-end">
                         დაქანება
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tax-liter-faqtobrivi-daqaneba"></div>
 
                 </div>
 
@@ -923,7 +919,7 @@
                         ტყეკაფის მონიშვნის დაწყების თარიღი
                     </div>
 
-                    <div class="col-8 border-bottom border-dark"></div>
+                    <div class="col-8 border-bottom border-dark text-center" id="tkekafis-monishvna-start"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -931,7 +927,7 @@
                         ტყეკაფის მონიშვნის დამთავრების თარიღი
                     </div>
 
-                    <div class="col-8 border-bottom border-dark"></div>
+                    <div class="col-8 border-bottom border-dark text-center" id="tkekafis-monishvna-end"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -939,7 +935,7 @@
                         მართვის ორგანო
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tkekafi-martvis-organo"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -947,13 +943,13 @@
                         სატყეო უბანი
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-satkeo-ubani"></div>
 
                     <div class="col-2 text-end">
                         სატყეო
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-satkeo"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -961,7 +957,7 @@
                         ტყითმოსარგებლე
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tkekafi-tkitmosargeble"></div>
 
                 </div>
 
@@ -970,19 +966,19 @@
                         კვარტალი#
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-kvartali"></div>
 
                     <div class="col-2 text-end">
                         ლიტერი#
                     </div>
 
-                    <div class="col-3 border-bottom border-dark"></div>
+                    <div class="col-3 border-bottom border-dark text-center" id="tkekafi-literi"></div>
 
                     <div class="col-2 text-end">
                         ფართობი#
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-volume"></div>
 
                 </div>
 
@@ -991,13 +987,13 @@
                         ჭრის სახე
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-tchris-sakhe"></div>
 
                     <div class="col-3 text-end">
                         კორომის შემადგენლობა
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-koromi"></div>
 
                 </div>
 
@@ -1006,13 +1002,13 @@
                         ჭსიმაღლის თანრიგი
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-tchris-simaglis-tanrigi"></div>
 
                     <div class="col-2 text-end">
                         ჭრის %
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-tchris-percent"></div>
 
                 </div>
 
@@ -1021,19 +1017,19 @@
                         სიხშირე
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-sikhshire"></div>
 
                     <div class="col-2 text-end">
                         მოზარდ-აღმონაცენი
                     </div>
 
-                    <div class="col-3 border-bottom border-dark"></div>
+                    <div class="col-3 border-bottom border-dark text-center" id="tkekafi-mozard-aghmonatseni"></div>
 
                     <div class="col-2 text-end">
                         ხნოვანება
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-khnovaneba"></div>
 
                 </div>
 
@@ -1047,13 +1043,13 @@
                         1) X
                     </div>
 
-                    <div class="col-3 border-bottom border-dark"></div>
+                    <div class="col-3 border-bottom border-dark text-center" id="tkekafi-x1"></div>
 
                     <div class="col-2 text-end">
                         Y
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-y1"></div>
 
                 </div>
 
@@ -1064,13 +1060,13 @@
                         2) X
                     </div>
 
-                    <div class="col-3 border-bottom border-dark"></div>
+                    <div class="col-3 border-bottom border-dark text-center" id="tkekafi-x2"></div>
 
                     <div class="col-2 text-end">
                         Y
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-y2"></div>
 
                 </div>
 
@@ -1079,19 +1075,19 @@
                         ს.ზ.დ
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-szd"></div>
 
                     <div class="col-2 text-end">
                         დაქანება
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-daqaneba"></div>
 
                     <div class="col-3 text-end">
                         ტყეკაფი დადამღულია N
                     </div>
 
-                    <div class="col-2 border-bottom border-dark"></div>
+                    <div class="col-2 border-bottom border-dark text-center" id="tkekafi-dadamghulia"></div>
 
                 </div>
 
@@ -1297,7 +1293,7 @@
                         ტყეკაფის მომნიშნავი
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-momnishnavi"></div>
                 </div>
 
                 <div class="row mt-3">
@@ -1305,7 +1301,7 @@
                         უწყისის შედგენის თარიღი:
                     </div>
 
-                    <div class="col-4 border-bottom border-dark"></div>
+                    <div class="col-4 border-bottom border-dark text-center" id="tkekafi-shedgenis-dro"></div>
                 </div>
 
             </div>
@@ -1327,7 +1323,7 @@
                             1. ტყითსარგებლობის საფუძველი
                         </div>
 
-                        <div class="col-8 border-bottom border-dark"></div>
+                        <div class="col-8 border-bottom border-dark text-center" id="pasporti-safudzveli"></div>
                     </div>
 
 
@@ -1336,13 +1332,13 @@
                             2. ტყითმოსარგებლე
                         </div>
 
-                        <div class="col-4 border-bottom border-dark"></div>
+                        <div class="col-4 border-bottom border-dark text-center" id="pasporti-mosargeble"></div>
 
                         <div class="col-2 text-end">
                             3. ს/კ ან პ/ნ
                         </div>
 
-                        <div class="col-3 border-bottom border-dark"></div>
+                        <div class="col-3 border-bottom border-dark text-center" id="pasporti-skpn"></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1350,7 +1346,7 @@
                             4. ტყითმოსარგებლის მისამართი
                         </div>
 
-                        <div class="col-8 border-bottom border-dark"></div>
+                        <div class="col-8 border-bottom border-dark text-center" id="pasporti-mosargeblis-misamarti"></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1358,7 +1354,7 @@
                             5. მართვის ორგანო
                         </div>
 
-                        <div class="col-8 border-bottom border-dark"></div>
+                        <div class="col-8 border-bottom border-dark text-center" id="pasporti-martvis-organo"></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1366,13 +1362,13 @@
                             6. სატყეო უბანი
                         </div>
 
-                        <div class="col-4 border-bottom border-dark"></div>
+                        <div class="col-4 border-bottom border-dark text-center" id="pasporti-satkeo-ubani"></div>
 
                         <div class="col-2 text-end">
                             7. სატყეო
                         </div>
 
-                        <div class="col-3 border-bottom border-dark"></div>
+                        <div class="col-3 border-bottom border-dark text-center" id="pasporti-satkeo"></div>
                     </div>
 
                     <div class="row m-0 mt-3">
@@ -1380,19 +1376,19 @@
                             8. კვარტალი#
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-kvartali"></div>
 
                         <div class="col-2 text-end">
                             9. ლიტერი#
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-literi"></div>
 
                         <div class="col-2 text-end">
                             10. ფართობი#
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-volume"></div>
 
                     </div>
 
@@ -1401,13 +1397,13 @@
                             11. ტყფ-ის მონიშვნის მასალების წარმოდგენის თარიღი
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-masalebis-tsarmodgenis-date"></div>
 
                         <div class="col-2 text-end">
                             12. ჭრის სახე
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-tchris-sakhe"></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1415,13 +1411,13 @@
                             13. ტყეკაფი მონიშნა
                         </div>
 
-                        <div class="col-4 border-bottom border-dark"></div>
+                        <div class="col-4 border-bottom border-dark text-center" id="pasporti-tke-monishna"></div>
 
                         <div class="col-2 text-end">
                             14. ს/კ ან პ/ნ
                         </div>
 
-                        <div class="col-3 border-bottom border-dark"></div>
+                        <div class="col-3 border-bottom border-dark text-center" id="pasporti-monishna-piradi-nom" ></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1429,25 +1425,25 @@
                             15. ხეთა რაოდენობა
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-kheta-raodenoba"></div>
 
                         <div class="col-2 text-end">
                             16. სიხშირე
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-sikhshire"></div>
 
                         <div class="col-2 text-end">
                             17. ჭრის %
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-tchris-percent"></div>
 
                         <div class="col-2 text-end">
                             18. ხნოვანება
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-khnovaneba"></div>
 
                     </div>
 
@@ -1456,25 +1452,25 @@
                             19. მოზარდ აღმნ.
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-mozard-aghmnishvneli"></div>
 
                         <div class="col-2 text-end">
                             20. ს.ზ.დ (მ)
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-szd"></div>
 
                         <div class="col-2 text-end">
                             21. დაქანება
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-daqaneba"></div>
 
                         <div class="col-2 text-end">
                             22. ექსპოზიცია
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-exposition"></div>
 
                     </div>
 
@@ -1488,13 +1484,13 @@
                             1) X
                         </div>
 
-                        <div class="col-3 border-bottom border-dark"></div>
+                        <div class="col-3 border-bottom border-dark text-center" id="pasporti-x1"></div>
 
                         <div class="col-2 text-end">
                             Y
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-y1"></div>
 
                     </div>
 
@@ -1505,13 +1501,13 @@
                             2) X
                         </div>
 
-                        <div class="col-3 border-bottom border-dark"></div>
+                        <div class="col-3 border-bottom border-dark text-center" id="pasporti-x2"></div>
 
                         <div class="col-2 text-end">
                             Y
                         </div>
 
-                        <div class="col-2 border-bottom border-dark"></div>
+                        <div class="col-2 border-bottom border-dark text-center" id="pasporti-y2"></div>
 
                     </div>
 
@@ -1520,7 +1516,7 @@
                             24. ტყეკაფის გახსნის თარიღი
                         </div>
 
-                        <div class="col-8 border-bottom border-dark"></div>
+                        <div class="col-8 border-bottom border-dark text-center" id="pasporti-tke-gakhsnis-tarighi"></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1528,7 +1524,7 @@
                             25. ტყეკაფის დახურვის თარიღი
                         </div>
 
-                        <div class="col-8 border-bottom border-dark"></div>
+                        <div class="col-8 border-bottom border-dark text-center" id="pasporti-tke-dakhurvis-tarighi"></div>
                     </div>
 
                     <div class="row mt-3 m-0">
@@ -1544,7 +1540,7 @@
                             №
                         </div>
 
-                        <div class="col-1 border-bottom border-dark"></div>
+                        <div class="col-1 border-bottom border-dark text-center" id="pasporti-dadamghulia"></div>
 
                         <div class="col-3">
                             დამღა-ნუმერატორით

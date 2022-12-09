@@ -137,6 +137,16 @@
                                     </div>
                                 </div>
 
+                                <div class="row mt-3">
+                                    <div class="col-4 text-danger">
+                                        ლიტერი
+                                    </div>
+
+                                    <div class="col-8">
+                                        <input type="text" class="form-control information-literi">
+                                    </div>
+                                </div>
+
 
                                 <div class="row mt-3">
                                     <div class="col-3">
@@ -803,13 +813,13 @@
                         </tr>
 
                         <tr style="height: 41px">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td id="tax-liter-volume"></td>
+                            <td id="tax-liter-prognozuli-tket"></td>
+                            <td id="tax-liter-prognozuli-fact"></td>
+                            <td id="tax-liter-sikhshire-tket"></td>
+                            <td id="tax-liter-sikhshire-fact"></td>
+                            <td id="tax-liter-khnovaneba-tket"></td>
+                            <td id="tax-liter-khnovaneba-fact"></td>
                         </tr>
 
                         <tr style="height: 41px">
@@ -833,7 +843,7 @@
                         ტყეთმოწყობით:
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tax-liter-tket-aghmonatsen"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -841,7 +851,7 @@
                         ფაქტობრივი:
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tax-liter-factobrivi-aghmonatsen"></div>
                 </div>
 
                 <div class="fw-bold mt-3">
@@ -853,7 +863,7 @@
                         ტყეთმოწყობით:
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tax-liter-kvetke-tket"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -861,7 +871,7 @@
                         ფაქტობრივი:
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tax-liter-kvetke-fact"></div>
                 </div>
 
                 <div class="row m-0 mt-3">
@@ -869,7 +879,7 @@
                         რეკომენდაცია:
                     </div>
 
-                    <div class="col-10 border-bottom border-dark"></div>
+                    <div class="col-10 border-bottom border-dark text-center" id="tax-liter-kvetke-rekomendatsia"></div>
                 </div>
 
                 <div class="row m-0 mt-5">
@@ -1551,79 +1561,18 @@
 
                 <div class="table-responsive">
                     <table class="table table-bordered align-middle text-center border-dark mt-5 mb-0">
-                        <tr>
-                            <th>ერთეული</th>
+                        <thead>
+                            <tr>
+                                <th>ერთეული</th>
 
-                            <th>ჯიში</th>
+                                <th>ჯიში</th>
 
-                            <th>თანრიგი</th>
-                        </tr>
-
-                        <tr>
-                            <td></td>
-
-                            <td>რცხილა</td>
-
-                            <td>V</td>
-                        </tr>
-
-                        <tr>
-                            <td></td>
-
-                            <td>მუხა</td>
-
-                            <td>VI</td>
-                        </tr>
-
-                        <tr>
-                            <td></td>
-
-                            <td>წიფელი</td>
-
-                            <td>V</td>
-                        </tr>
-
-                        <tr>
-                            <td style="height: 41px;"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td style="height: 41px;"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td style="height: 41px;"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td style="height: 41px;"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td style="height: 41px;"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
-                        <tr>
-                            <td style="height: 41px;"></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
+                                <th>თანრიგი</th>
+                            </tr>
+                        </thead>
+                        <tbody id="erteuli-jishi-tanrigi">
+                            
+                        </tbody>
                     </table>
                 </div>
 

@@ -1867,6 +1867,7 @@ const btnAdd = document.getElementById('btn-add');
 const tanrigiDiv = document.getElementById('tanrigi-div');
 let tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
 let tanrigiInput = document.querySelectorAll('.tanrigi-input');
+let shemadgenlobaInput = document.querySelectorAll('.shemadgenloba-input');
 const btnSet = document.getElementById('btn-set');
 const sulLikvidi = document.querySelectorAll('.sul-likvidi');
 const sulVarjidan = document.querySelectorAll('.sul-varjidan');
@@ -1892,8 +1893,11 @@ const gpsCoordinates = document.querySelectorAll('.gps-coordinate');
 
 const taxLiterTket = document.querySelectorAll('.tax-liter-tket');
 const taxLiterFactobrivi = document.querySelectorAll('.tax-liter-factobrivi');
+
+const erteuliJishiTanrigi = document.getElementById('erteuli-jishi-tanrigi');
 /////
 
+let minichebuliTanrigiArr = [];
 
 const saxeobebi = [ 
     {eng: 'akacia', geo: 'აკაცია'},
@@ -1935,6 +1939,8 @@ renderBtn.addEventListener('click', () => {
     const infTkekafiArr = [];
     const taxLiterTketArr = [];
     const taxLiterFactobriviArr = [];
+
+    erteuliJishiTanrigi.innerHTML = '';
 
     infLiteri.forEach(el => {
         infLiteriArr.push(el.value);
@@ -1980,6 +1986,7 @@ renderBtn.addEventListener('click', () => {
         satkeoUbani: infLiteriArr[5],
         satkeo: infLiteriArr[6],
         kvartali: infLiteriArr[7],
+        literi: infLiteriArr[8],
     };
 
     const gpsCoordinatesObj = {
@@ -2037,7 +2044,7 @@ renderBtn.addEventListener('click', () => {
     document.getElementById('aqti-satkeo-ubani').innerHTML = `${infLiteriObj.satkeoUbani}`;
     document.getElementById('aqti-satkeo').innerHTML = `${infLiteriObj.satkeo}`;
     document.getElementById('aqti-kvartali').innerHTML = `${infLiteriObj.kvartali}`;
-    document.getElementById('aqti-literi').innerHTML = `${''}`;
+    document.getElementById('aqti-literi').innerHTML = `${infLiteriObj.literi}`;
     document.getElementById('aqti-x1').innerHTML = `${gpsCoordinatesObj.x1}`;
     document.getElementById('aqti-y1').innerHTML = `${gpsCoordinatesObj.y1}`;
     document.getElementById('aqti-x2').innerHTML = `${gpsCoordinatesObj.x2}`;
@@ -2052,6 +2059,21 @@ renderBtn.addEventListener('click', () => {
     document.getElementById('tax-liter-faqtobrivi-shemadgenloba').innerHTML = `${taxLiterFactobriviObj.shemadgenloba}`;
     document.getElementById('tax-liter-faqtobrivi-exposition').innerHTML = `${taxLiterFactobriviObj.exposition}`;
     document.getElementById('tax-liter-faqtobrivi-daqaneba').innerHTML = `${taxLiterFactobriviObj.daqaneba}`;
+
+    document.getElementById('tax-liter-volume').innerHTML = `${''}`;
+    document.getElementById('tax-liter-prognozuli-tket').innerHTML = `${taxLiterTketObj.progMaragi}`;
+    document.getElementById('tax-liter-prognozuli-fact').innerHTML = `${taxLiterFactobriviObj.progMaragi}`;
+    document.getElementById('tax-liter-sikhshire-tket').innerHTML = `${taxLiterTketObj.sikhshire}`;
+    document.getElementById('tax-liter-sikhshire-fact').innerHTML = `${taxLiterFactobriviObj.sikhshire}`;
+    document.getElementById('tax-liter-khnovaneba-tket').innerHTML = `${taxLiterTketObj.khnovaneba}`;
+    document.getElementById('tax-liter-khnovaneba-fact').innerHTML = `${taxLiterFactobriviObj.khnovaneba}`;
+
+    document.getElementById('tax-liter-tket-aghmonatsen').innerHTML = `${taxLiterTketObj.aghmonatsenMozardi}`;
+    document.getElementById('tax-liter-factobrivi-aghmonatsen').innerHTML = `${taxLiterFactobriviObj.aghmonatsenMozardi}`;
+    document.getElementById('tax-liter-kvetke-tket').innerHTML = `${taxLiterTketObj.kvetkeMozardi}`;
+    document.getElementById('tax-liter-kvetke-fact').innerHTML = `${taxLiterFactobriviObj.kvetkeMozardi}`;
+    document.getElementById('tax-liter-kvetke-rekomendatsia').innerHTML = `${taxLiterFactobriviObj.rekomendatsia}`;
+    
     ///////////////////////////////////////////////////////////////////////////////////////
 
     /////////////ტყეკაფის აღრიცხვის უწყისი////////////////////////////////////////////////
@@ -2062,21 +2084,21 @@ renderBtn.addEventListener('click', () => {
     document.getElementById('tkekafi-satkeo').innerHTML = `${infLiteriObj.satkeo}`;
     document.getElementById('tkekafi-tkitmosargeble').innerHTML = `${infLiteriObj.mosargeble}`;
     document.getElementById('tkekafi-kvartali').innerHTML = `${infLiteriObj.kvartali}`;
-    document.getElementById('tkekafi-literi').innerHTML = `${''}`;
+    document.getElementById('tkekafi-literi').innerHTML = `${infLiteriObj.literi}`;
     document.getElementById('tkekafi-volume').innerHTML = `${infTkekafiObj.tkekafiFartobi}`;
     document.getElementById('tkekafi-tchris-sakhe').innerHTML = `${infTkekafiObj.tchrisSakhe}`;
     document.getElementById('tkekafi-koromi').innerHTML = `${''}`;
     document.getElementById('tkekafi-tchris-simaglis-tanrigi').innerHTML = `${''}`;
     document.getElementById('tkekafi-tchris-percent').innerHTML = `${infTkekafiObj.tchrisProcenti}`;
-    document.getElementById('tkekafi-sikhshire').innerHTML = `${''}`;
-    document.getElementById('tkekafi-mozard-aghmonatseni').innerHTML = `${''}`;
-    document.getElementById('tkekafi-khnovaneba').innerHTML = `${''}`;
+    document.getElementById('tkekafi-sikhshire').innerHTML = `${taxLiterFactobriviObj.sikhshire}`;
+    document.getElementById('tkekafi-mozard-aghmonatseni').innerHTML = `${taxLiterFactobriviObj.aghmonatsenMozardi}`;
+    document.getElementById('tkekafi-khnovaneba').innerHTML = `${taxLiterFactobriviObj.khnovaneba}`;
     document.getElementById('tkekafi-x1').innerHTML = `${gpsCoordinatesObj.x1}`;
     document.getElementById('tkekafi-y1').innerHTML = `${gpsCoordinatesObj.y1}`;
     document.getElementById('tkekafi-x2').innerHTML = `${gpsCoordinatesObj.x2}`;
     document.getElementById('tkekafi-y2').innerHTML = `${gpsCoordinatesObj.y2}`;
     document.getElementById('tkekafi-szd').innerHTML = `${infTkekafiObj.simagleSeaLevel}`;
-    document.getElementById('tkekafi-daqaneba').innerHTML = `${''}`;
+    document.getElementById('tkekafi-daqaneba').innerHTML = `${taxLiterFactobriviObj.daqaneba}`;
     document.getElementById('tkekafi-dadamghulia').innerHTML = `${infTkekafiObj.damghaNumeratori}`;
     document.getElementById('tkekafi-momnishnavi').innerHTML = `${infTkekafiObj.momnishnavi1}`;
     document.getElementById('tkekafi-shedgenis-dro').innerHTML = `${''}`;
@@ -2092,20 +2114,20 @@ renderBtn.addEventListener('click', () => {
     document.getElementById('pasporti-satkeo-ubani').innerHTML = `${infLiteriObj.satkeoUbani}`;
     document.getElementById('pasporti-satkeo').innerHTML = `${infLiteriObj.satkeo}`;
     document.getElementById('pasporti-kvartali').innerHTML = `${infLiteriObj.kvartali}`;
-    document.getElementById('pasporti-literi').innerHTML = `${''}`;
+    document.getElementById('pasporti-literi').innerHTML = `${infLiteriObj.literi}`;
     document.getElementById('pasporti-volume').innerHTML = `${infTkekafiObj.tkekafiFartobi}`;
     document.getElementById('pasporti-masalebis-tsarmodgenis-date').innerHTML = `${infTkekafiObj.masalebiRealisationTime}`;
     document.getElementById('pasporti-tchris-sakhe').innerHTML = `${infTkekafiObj.tchrisSakhe}`;
     document.getElementById('pasporti-tke-monishna').innerHTML = `${infTkekafiObj.momnishnavi1}`;
     document.getElementById('pasporti-monishna-piradi-nom').innerHTML = `${infTkekafiObj.piradiNom}`;
     document.getElementById('pasporti-kheta-raodenoba').innerHTML = `${''}`;
-    document.getElementById('pasporti-sikhshire').innerHTML = `${''}`;
+    document.getElementById('pasporti-sikhshire').innerHTML = `${taxLiterFactobriviObj.sikhshire}`;
     document.getElementById('pasporti-tchris-percent').innerHTML = `${infTkekafiObj.tchrisProcenti}`;
-    document.getElementById('pasporti-khnovaneba').innerHTML = `${''}`;
-    document.getElementById('pasporti-mozard-aghmnishvneli').innerHTML = `${''}`;
+    document.getElementById('pasporti-khnovaneba').innerHTML = `${taxLiterFactobriviObj.khnovaneba}`;
+    document.getElementById('pasporti-mozard-aghmnishvneli').innerHTML = `${taxLiterFactobriviObj.aghmonatsenMozardi}`;
     document.getElementById('pasporti-szd').innerHTML = `${infTkekafiObj.simagleSeaLevel}`;
-    document.getElementById('pasporti-daqaneba').innerHTML = `${''}`;
-    document.getElementById('pasporti-exposition').innerHTML = `${''}`;
+    document.getElementById('pasporti-daqaneba').innerHTML = `${taxLiterFactobriviObj.daqaneba}`;
+    document.getElementById('pasporti-exposition').innerHTML = `${taxLiterFactobriviObj.exposition}`;
     document.getElementById('pasporti-x1').innerHTML = `${gpsCoordinatesObj.x1}`;
     document.getElementById('pasporti-y1').innerHTML = `${gpsCoordinatesObj.y1}`;
     document.getElementById('pasporti-x2').innerHTML = `${gpsCoordinatesObj.x2}`;
@@ -2113,6 +2135,26 @@ renderBtn.addEventListener('click', () => {
     document.getElementById('pasporti-tke-gakhsnis-tarighi').innerHTML = `${infTkekafiObj.monishvnaStartTime}`;
     document.getElementById('pasporti-tke-dakhurvis-tarighi').innerHTML = `${infTkekafiObj.monishvnaEndTime}`;
     document.getElementById('pasporti-dadamghulia').innerHTML = `${infTkekafiObj.damghaNumeratori}`;
+
+    minichebuliTanrigiArr.forEach(el => {
+        let geoTreeName = '';
+
+        saxeobebi.forEach(tr => {
+            if(el.jishi == tr.eng) {
+                geoTreeName = tr.geo;
+            }
+        })
+        
+        const html = `
+                    <tr>
+                        <td>${el.shemadgenloba}</td>
+                        <td>${geoTreeName}</td>
+                        <td>${el.tanrigi}</td>
+                    </tr>`
+        erteuliJishiTanrigi.insertAdjacentHTML('beforeend', html);
+    });
+
+    
     ///////////////////////////////////////////////////////////////////////////////////////
 });
 
@@ -2126,14 +2168,15 @@ function renderInputValues(arr1, arr2) {
 btnAdd.addEventListener('click', () => {
     tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
     tanrigiInput = document.querySelectorAll('.tanrigi-input');
+    shemadgenlobaInput = document.querySelectorAll('.shemadgenloba-input');
     jishi = document.getElementById('jishi');
     selectArray = [];
     
     if(tanrigiJishi.length === tanrigiInput.length) {
         for(let i = 0; i < tanrigiJishi.length; i++) {
-            selectArray.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
+            selectArray.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value, shemadgenloba: shemadgenlobaInput[i].value });
         }
-        selectArray.push({jishi: 'akacia', tanrigi: ''});
+        selectArray.push({jishi: 'akacia', tanrigi: '', shemadgenloba: '',});
         renderSelectOptions(selectArray);
     }
     
@@ -2178,7 +2221,9 @@ function renderSelectOptions(arr) {
                             <td>
                                 <input type="text" placeholder="თანრიგი" class='tanrigi-input form-control form-control-sm' value='${el.tanrigi}'>
                             </td>
-                            <td></td>
+                            <td>
+                                <input type="text" placeholder="ჩაწერეთ 1დან 10მდე" class='shemadgenloba-input form-control form-control-sm' value='${el.shemadgenloba}'>
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-sm" id='delete-select' onClick='deleteSelect(${i})'>x</button>
                             </td>
@@ -2194,6 +2239,7 @@ function deleteSelect(index) {
     errorDiv.style.display = 'none';
     tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
     tanrigiInput = document.querySelectorAll('.tanrigi-input');
+    shemadgenlobaInput = document.querySelectorAll('.shemadgenloba-input');
     jishi = document.getElementById('jishi');
 
     selectArray = [];
@@ -2201,7 +2247,7 @@ function deleteSelect(index) {
     if(tanrigiJishi.length === tanrigiInput.length) {
         for(let i = 0; i < tanrigiJishi.length; i++) {
             if(i !== index) {
-                selectArray.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
+                selectArray.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value, shemadgenloba: shemadgenlobaInput[i].value});
             }
         }
         renderSelectOptions(selectArray);
@@ -2211,21 +2257,44 @@ function deleteSelect(index) {
 let minichebuliTanrigi = JSON.parse(localStorage.getItem('tanrigebi'));
 let selectArray = minichebuliTanrigi;
 
+function  isSumOfShemadgenlobaMoreThanTen(arr) {
+    let num = 0;
+    arr.forEach(el => {
+        num = num + Number(el.shemadgenloba);
+    });
+
+    if(num > 10) {
+        shemadgenlobaInput.forEach(el => {
+            el.classList.add('red-input');
+        })
+    } else {
+        shemadgenlobaInput.forEach(el => {
+            el.classList.remove('red-input');
+        })
+    }
+}
+
 
 btnSet.addEventListener('click', ()=> {
     tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
     tanrigiInput = document.querySelectorAll('.tanrigi-input');
+    shemadgenlobaInput = document.querySelectorAll('.shemadgenloba-input');
     jishi = document.getElementById('jishi');
     minichebuliTanrigi = [];
     jishi.innerHTML = '';
     
     if(tanrigiJishi.length === tanrigiInput.length) {
         for(let i = 0; i < tanrigiJishi.length; i++) {
-            minichebuliTanrigi.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value});
+            minichebuliTanrigi.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value, shemadgenloba: shemadgenlobaInput[i].value });
         }
         localStorage.setItem('tanrigebi', JSON.stringify(minichebuliTanrigi));
         renderTanrigi(minichebuliTanrigi);
     }
+
+    isSumOfShemadgenlobaMoreThanTen(minichebuliTanrigi);
+
+    minichebuliTanrigiArr = minichebuliTanrigi;
+
     if(treeArrayFromJSON) {
         treeArray = treeArrayFromJSON;
 
@@ -2620,6 +2689,8 @@ function initialize() {
     renderInputValues(infTkekafi, infTkekafiArrJSON);
     renderInputValues(taxLiterTket, taxLiterTketArrJSON);
     renderInputValues(taxLiterFactobrivi, taxLiterFactobriviArrJSON);
+
+    minichebuliTanrigiArr = JSON.parse(localStorage.getItem('tanrigebi'));
 
     moculobebi.forEach((el, ind) => {
         const htmlMoculobaOptions = `<option value="${ind}">${el}</option>`;

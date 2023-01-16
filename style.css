@@ -6,7 +6,9 @@
     color: red;
     border: 1px solid red;
 }
-
+*:focus {
+    box-shadow: unset !important;
+}
 body {
     position: relative;
     z-index: 1000;
@@ -14,4 +16,63 @@ body {
 
 .red-input {
     border: 1px solid red;
+}
+
+.render-btn {
+    position: fixed;
+    right: 200px;
+    top: 15px;
+}
+.offcanvas.offcanvas-start {
+    background: #0f1817 !important;
+}
+.side-bar--accordion .accordion-body {
+    background-color: #344b41 !important;
+    color: #fff !important;
+}
+.side-bar--accordion .accordion-button::after {
+    background-image: unset !important;
+    font-family: "Font Awesome 5 Free";
+    content: "\2b";
+    font-weight: 900;
+}
+.side-bar--accordion .accordion-button:not(.collapsed) {
+  box-shadow: unset;
+}
+.side-bar--accordion .accordion-button:not(.collapsed)::after {
+    background-image: unset !important;
+    font-family: "Font Awesome 5 Free";
+    content: "\f068";
+    font-weight: 900;
+    transform: unset;
+}
+.cutting-area--list {
+    max-height: 224px;
+    overflow-y: auto;
+}
+@media screen and (min-width: 992px){
+    .offcanvas.offcanvas-start {
+        width: 300px !important;
+    }
+    .content-width {
+        width: calc(100% - 320px) !important;
+    }
+}
+@media screen and (max-width: 991px){
+    .side-bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #fff;
+        z-index: 100;
+    }
+    .render-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+        top: unset;
+    }
+    .content-width {
+        margin-top: 60px;
+    }
 }

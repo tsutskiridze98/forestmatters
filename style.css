@@ -22,6 +22,7 @@ body {
     position: fixed;
     right: 200px;
     top: 15px;
+    z-index: 3000;
 }
 .offcanvas.offcanvas-start {
     background: #0f1817 !important;

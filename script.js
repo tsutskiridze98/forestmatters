@@ -1882,22 +1882,35 @@ const shenishvna = document.getElementById('shenishvna');
 const shenishvnaInput = document.getElementById('shenishvna-input');
 const moculoba = document.getElementById('moculoba');
 
+
+
+let tkekafi_ID = 0;
+
+//// tkekafi sia
+let tkekafisSia = document.querySelectorAll('.tkekafis-sia');
+const tkekafisSiaAdd = document.querySelector('.tkekafis-sia-add');
+const tkekafisSiaDelete = document.querySelectorAll('.tkekafis-sia-delete');
+const cuttingAreaList = document.querySelector('.cutting-area--list');
+
+
+
 /////////
 const renderBtn = document.getElementById('render');
+const saveTkekafi = document.getElementById('save-tkekafi');
 
-const infLiteri = document.querySelectorAll('.information-literi');
+let infLiteri = document.querySelectorAll('.information-literi');
 
-const infTkekafi = document.querySelectorAll('.information-tkekafi');
+let infTkekafi = document.querySelectorAll('.information-tkekafi');
 
-const gpsCoordinates = document.querySelectorAll('.gps-coordinate');
+let gpsCoordinates = document.querySelectorAll('.gps-coordinate');
 
-const taxLiterTket = document.querySelectorAll('.tax-liter-tket');
-const taxLiterFactobrivi = document.querySelectorAll('.tax-liter-factobrivi');
+let taxLiterTket = document.querySelectorAll('.tax-liter-tket');
+let taxLiterFactobrivi = document.querySelectorAll('.tax-liter-factobrivi');
 
 const erteuliJishiTanrigi = document.getElementById('erteuli-jishi-tanrigi');
 /////
-
 let minichebuliTanrigiArr = [];
+let tkekafisSiaArray = [];
 
 const saxeobebi = [ 
     {eng: 'akacia', geo: 'აკაცია'},
@@ -1932,6 +1945,184 @@ let taxLiterFactobriviArrJSON = JSON.parse(localStorage.getItem('taxLiterFactobr
 ////////////////////////////////////
 //---------FUNCTIONS--------------//
 ////////////////////////////////////
+
+let tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
+if(tkekafisSiaArrayJSON) {
+    tkekafisSiaArray = tkekafisSiaArrayJSON;
+}
+
+tkekafisSiaAdd.addEventListener('click', ()=> {
+    const tkekafiName = 'ტყეკაფი_' + (tkekafisSiaArray.length +1);
+    const obj = {
+        tkekafiName: tkekafiName,
+        infLiteri: [
+            "", "", "", "", "", "", "", "", ""
+        ],
+        treeArray: [],
+
+        gpsCoordinates: [
+            "", "", "", ""
+        ],
+        taxLiterTket: [
+            "", "", "", "", "", "", "", "", "", ""
+        ],
+        infTkekafi: [
+            "", "", "", "", "", "", "", "", "", "", ""
+        ],
+        taxLiterFactobrivi: [
+            "", "", "", "", "", "", "", "", "", ""
+        ],
+        tanrigebi: [
+        ]
+    };
+    
+    tkekafisSiaArray.push(obj);
+    tkekafi_ID = tkekafisSiaArray.length -1;
+    console.log(tkekafi_ID);
+
+    renderTkekafiSiaBtn(tkekafisSiaArray);
+    
+    //console.log(tkekafisSia);
+    const currentObj = tkekafisSiaArray[tkekafi_ID];
+    //console.log(currentObj.tanrigebi);
+
+    renderData(currentObj.treeArray);
+    renderTanrigi(currentObj.tanrigebi);
+    renderSelectOptions(currentObj.tanrigebi);
+    renderJami(currentObj.treeArray);
+
+    minichebuliTanrigiArr = currentObj.tanrigebi;
+
+    renderInputValues(infLiteri, currentObj.infLiteri);
+    renderInputValues(gpsCoordinates, currentObj.gpsCoordinates);
+    renderInputValues(infTkekafi, currentObj.infTkekafi);
+    renderInputValues(taxLiterTket, currentObj.taxLiterTket);
+    renderInputValues(taxLiterFactobrivi, currentObj.taxLiterFactobrivi);
+
+    localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+    tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
+
+    tkekafisSia = document.querySelectorAll('.tkekafis-sia');
+    tkekafisSia.forEach((el, i) => {
+            if(i == tkekafi_ID) {
+                el.classList.add('btn-primary');
+                el.classList.remove('btn-outline-primary');
+            } else {
+                el.classList.remove('btn-primary');
+                el.classList.add('btn-outline-primary');
+            }
+        });
+});
+
+function renderTkekafiSiaBtn(arr) {
+    if(arr) {
+        cuttingAreaList.innerHTML = '';
+        for(let i = 0; i < arr.length; i++) {
+            if(arr.length > 1) {
+                const html = `<li class="mt-3">
+                            <button onClick='selectTkekafiItem(${i})' class="btn btn-outline-primary btn-sm tkekafis-sia">${arr[i].tkekafiName}</button> 
+                            <button onClick='deleteTkekafiItem(${i})' class="btn btn-danger btn-sm tkekafis-sia-delete">x</button>
+                        </li>`
+                cuttingAreaList.insertAdjacentHTML('beforeend', html);
+            } else {
+                const html = `<li class="mt-3">
+                            <button onClick='selectTkekafiItem(${i})' class="btn btn-outline-primary btn-sm tkekafis-sia">${arr[i].tkekafiName}</button> 
+                        </li>`
+                cuttingAreaList.insertAdjacentHTML('beforeend', html);
+            }
+            
+        }
+        //console.log(tkekafi_ID);
+    }
+};
+
+function selectTkekafiItem(index) {
+    tkekafisSia = document.querySelectorAll('.tkekafis-sia');
+    tkekafi_ID = index;
+    const currentObj = tkekafisSiaArray[tkekafi_ID];
+    console.log("tkekafi_ID" );
+
+    renderData(currentObj.treeArray);
+    renderTanrigi(currentObj.tanrigebi);
+    renderSelectOptions(currentObj.tanrigebi);
+    renderJami(currentObj.treeArray);
+
+    minichebuliTanrigiArr = currentObj.tanrigebi;
+
+    renderInputValues(infLiteri, currentObj.infLiteri);
+    renderInputValues(gpsCoordinates, currentObj.gpsCoordinates);
+    renderInputValues(infTkekafi, currentObj.infTkekafi);
+    renderInputValues(taxLiterTket, currentObj.taxLiterTket);
+    renderInputValues(taxLiterFactobrivi, currentObj.taxLiterFactobrivi);
+
+    tkekafisSia.forEach((el, i) => {
+        if(i == index) {
+            el.classList.add('btn-primary');
+            el.classList.remove('btn-outline-primary');
+        } else {
+            el.classList.remove('btn-primary');
+            el.classList.add('btn-outline-primary');
+        }
+    });
+}
+
+function deleteTkekafiItem(index) {
+    tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
+    if(tkekafisSiaArrayJSON) {
+        tkekafisSiaArray = tkekafisSiaArrayJSON;
+    }
+
+    tkekafisSiaArray.splice(index, 1);
+    renderTkekafiSiaBtn(tkekafisSiaArray);
+    localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+    selectTkekafiItem(0);
+}
+
+saveTkekafi.addEventListener('click', ()=> {
+    infLiteri = document.querySelectorAll('.information-literi');
+    infTkekafi = document.querySelectorAll('.information-tkekafi');
+    gpsCoordinates = document.querySelectorAll('.gps-coordinate');
+    taxLiterTket = document.querySelectorAll('.tax-liter-tket');
+    taxLiterFactobrivi = document.querySelectorAll('.tax-liter-factobrivi');
+
+    const infLiteriArr = [];
+    const gpsCoordinatesArr = [];
+    const infTkekafiArr = [];
+    const taxLiterTketArr = [];
+    const taxLiterFactobriviArr = [];
+
+    infLiteri.forEach(el => {
+        infLiteriArr.push(el.value);
+    });
+
+    gpsCoordinates.forEach(el => {
+        gpsCoordinatesArr.push(el.value);
+    });
+
+    infTkekafi.forEach(el => {
+        infTkekafiArr.push(el.value);
+    });
+
+    taxLiterTket.forEach(el => {
+        taxLiterTketArr.push(el.value);
+    });
+
+    taxLiterFactobrivi.forEach(el => {
+        taxLiterFactobriviArr.push(el.value);
+    });
+
+
+    const currentObj = tkekafisSiaArray[tkekafi_ID];
+
+    currentObj.infLiteri = infLiteriArr;
+    currentObj.gpsCoordinates = gpsCoordinatesArr;
+    currentObj.infTkekafi = infTkekafiArr;
+    currentObj.taxLiterTket = taxLiterTketArr;
+    currentObj.taxLiterFactobrivi = taxLiterFactobriviArr;
+
+    localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+});
+
 
 renderBtn.addEventListener('click', () => {
     const infLiteriArr = [];
@@ -2253,9 +2444,11 @@ function deleteSelect(index) {
         renderSelectOptions(selectArray);
     }
 }
+let minichebuliTanrigi = [];
 
-let minichebuliTanrigi = JSON.parse(localStorage.getItem('tanrigebi'));
+tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
 let selectArray = minichebuliTanrigi;
+
 
 function  isSumOfShemadgenlobaMoreThanTen(arr) {
     let num = 0;
@@ -2276,6 +2469,7 @@ function  isSumOfShemadgenlobaMoreThanTen(arr) {
 
 
 btnSet.addEventListener('click', ()=> {
+    const currentObj = tkekafisSiaArray[tkekafi_ID];
     tanrigiJishi = document.querySelectorAll('.tanrigi-jishi');
     tanrigiInput = document.querySelectorAll('.tanrigi-input');
     shemadgenlobaInput = document.querySelectorAll('.shemadgenloba-input');
@@ -2287,18 +2481,18 @@ btnSet.addEventListener('click', ()=> {
         for(let i = 0; i < tanrigiJishi.length; i++) {
             minichebuliTanrigi.push({jishi: tanrigiJishi[i].value, tanrigi: tanrigiInput[i].value, shemadgenloba: shemadgenlobaInput[i].value });
         }
-        localStorage.setItem('tanrigebi', JSON.stringify(minichebuliTanrigi));
-        renderTanrigi(minichebuliTanrigi);
+        currentObj.tanrigebi = minichebuliTanrigi;
+        renderTanrigi(currentObj.tanrigebi);
     }
 
     isSumOfShemadgenlobaMoreThanTen(minichebuliTanrigi);
 
     minichebuliTanrigiArr = minichebuliTanrigi;
 
-    if(treeArrayFromJSON) {
-        treeArray = treeArrayFromJSON;
+    if(tkekafisSiaArrayJSON[tkekafi_ID].treeArray) {
+        currentObj.treeArray = tkekafisSiaArrayJSON[tkekafi_ID].treeArray;
 
-        treeArray.forEach((jish, indexi) => {
+        currentObj.treeArray.forEach((jish, indexi) => {
             minichebuliTanrigi.forEach(tanrigi => {
                 if(jish.treeEng === tanrigi.jishi && jish.tanrigi != tanrigi.tanrigi) {
                     ///////////////////////////////////////////////////
@@ -2332,7 +2526,7 @@ btnSet.addEventListener('click', ()=> {
                                 }
                                 // console.log(treeArray);
                                 //console.log(indexi, jish);
-                                treeArray[indexi] = data;
+                                currentObj.treeArray[indexi] = data;
                             }
                         }
 
@@ -2341,11 +2535,12 @@ btnSet.addEventListener('click', ()=> {
                 }
             })
         })
-        localStorage.setItem('treeArray', JSON.stringify(treeArray));
-        treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+        localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+        tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
+
         
-        renderData(treeArrayFromJSON);
-        renderJami(treeArrayFromJSON);
+        renderData(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
+        renderJami(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
         // console.log('treeArray', treeArray);
         // console.log("json", treeArrayFromJSON);
     }
@@ -2355,6 +2550,7 @@ function renderTanrigi(arr) {
     errorDiv.innerHTML = '';
     errorDiv.style.display = 'none';
     if(arr) {
+        jishi.innerHTML = '';
         arr.forEach(el => {
             let geotree = '';
             saxeobebi.forEach(s => {
@@ -2369,8 +2565,8 @@ function renderTanrigi(arr) {
 }
 
 
-let treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
-let treeArray = [];
+// let treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+// let treeArray = [];
 //console.log(JSON.parse(localStorage.getItem('treeArray')))
 
 const shenishvnebi = ['ფაუტი', 'ზეხმელი', 'ხმობადი', 'გადაბერებული', 'მრუდეღეროიანი', 'თავღორი', 'ძირიდან', 'განტოტილი', 'დაავადებული', 'ფუღურო', 'ტეხილი', ];
@@ -2380,8 +2576,9 @@ btn.addEventListener('click', ()=> {
     jishi = document.getElementById('jishi');
     //console.log(jishi.value);
     let arrLength = '';
-    if(treeArray) {
-        arrLength = treeArray.length;
+    const currentObj = tkekafisSiaArrayJSON[tkekafi_ID];
+    if(currentObj.treeArray) {
+        arrLength = currentObj.treeArray.length;
     }
   
     let treeGeo = '';
@@ -2413,25 +2610,27 @@ btn.addEventListener('click', ()=> {
                 shenishvna: shenishvnaInput.value,
                 moculoba: moculobebi[moculoba.value],
             }
-            if(treeArrayFromJSON) {
-                treeArray = treeArrayFromJSON;
+
+            if(tkekafisSiaArrayJSON[tkekafi_ID].treeArray) {
+                tkekafisSiaArray[tkekafi_ID].treeArray = tkekafisSiaArrayJSON[tkekafi_ID].treeArray;
             }
             console.log(data);
             // console.log(shenishvna.innerText);
             // console.log(moculoba.innerText);
-            treeArray.push(data);
-            localStorage.setItem('treeArray', JSON.stringify(treeArray));
-            treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
+            console.log("ID NUMBER:", tkekafi_ID);
+            tkekafisSiaArray[tkekafi_ID].treeArray.push(data);
+            localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+            tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
             //console.log(treeArrayFromJSON);
-            renderData(treeArrayFromJSON);
-            renderJami(treeArrayFromJSON);
+            renderData(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
+            renderJami(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
             break;
         } 
     }
 
-    if(arrLength === treeArray.length) {
-        renderError("ასეთი მონაცემებით ხე არ მოიძებნა");
-    }
+    // if(arrLength === tkekafisSiaArrayJSON[tkekafi_ID].treeArray.length) {
+    //     renderError("ხე ვერ დაემატა");
+    // }
     
     
 });
@@ -2516,42 +2715,34 @@ function renderError(message) {
 }
 
 function deleteEl(i){
-    treeArray = treeArrayFromJSON;
-    treeArray.splice(i, 1);
-    localStorage.setItem('treeArray', JSON.stringify(treeArray));
-    treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
-    renderData(treeArrayFromJSON);
-    renderJami(treeArrayFromJSON);
+    tkekafisSiaArray[tkekafi_ID].treeArray = tkekafisSiaArrayJSON[tkekafi_ID].treeArray;
+    tkekafisSiaArray[tkekafi_ID].treeArray.splice(i, 1);
+    localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+    tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
+    renderData(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
+    renderJami(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
     // console.log('JSON', treeArrayFromJSON);
     // console.log('treeArray', treeArray);
 }
 
 function editEl(i) {
-    treeArray = treeArrayFromJSON;
-    console.log(treeArray[i]);
+    tkekafisSiaArray[tkekafi_ID].treeArray = tkekafisSiaArrayJSON[tkekafi_ID].treeArray;
+    console.log(tkekafisSiaArray[tkekafi_ID].treeArray);
     const index = i;
     const number = i + 1;
 
     let treeEng = '';
 
     saxeobebi.forEach(x => {
-        if( treeArray[i].treeName === x.geo) {
+        if( tkekafisSiaArray[tkekafi_ID].treeArray[i].treeName === x.geo) {
             treeEng = x.eng;
         }
     });
 
-    //let shenishvnaValue = '';
-
-    // shenishvnebi.forEach((x, ind) => {
-    //     if(treeArray[i].shenishvna === x) {
-    //         shenishvnaValue = ind;
-    //     }
-    // });
-
     let moculobaValue = '';
 
     moculobebi.forEach((x, ind) => {
-        if(treeArray[i].moculoba === x) {
+        if(tkekafisSiaArray[tkekafi_ID].treeArray[i].moculoba === x) {
             moculobaValue = ind;
         }
     })
@@ -2560,18 +2751,18 @@ function editEl(i) {
 
     modalContent.innerHTML = `
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">რედაქტირება #${number} ${treeArray[i].treeName}</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">რედაქტირება #${number} ${tkekafisSiaArray[tkekafi_ID].treeArray[i].treeName}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="row gy-2 px-5">
                                     <div class="col-12">
                                         <select name="jishi" id='edit-jishi' class="form-select form-select-sm">
-                                            <option value="${treeEng}" selected>${treeArray[i].treeName}</option>
+                                            <option value="${treeEng}" selected>${tkekafisSiaArray[tkekafi_ID].treeArray[i].treeName}</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <input type="text" id='edit-diametri' placeholder="დიამეტრი" class='form-control form-control-sm' value='${treeArray[i].diametri}'>
+                                        <input type="text" id='edit-diametri' placeholder="დიამეტრი" class='form-control form-control-sm' value='${tkekafisSiaArray[tkekafi_ID].treeArray[i].diametri}'>
                                     </div>
                                     <div class="col-12">
                                         <input list="edit-shenishvna" id='edit-shenishvna-input'  class='form-control form-control-sm'>
@@ -2581,7 +2772,7 @@ function editEl(i) {
                                     </div>
                                     <div class="col-12">
                                         <select id='edit-moculoba' class="form-select form-select-sm">
-                                            <option value="${moculobaValue}" selected>${treeArray[i].moculoba}</option>
+                                            <option value="${moculobaValue}" selected>${tkekafisSiaArray[tkekafi_ID].treeArray[i].moculoba}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -2612,17 +2803,17 @@ function editEl(i) {
             }
         });
 
-        editShenishvnaInput.value = treeArray[i].shenishvna;
+        editShenishvnaInput.value = tkekafisSiaArray[tkekafi_ID].treeArray[i].shenishvna;
 
         shenishvnebi.forEach((el, ind) => {
-            if(treeArray[i].shenishvna !== el) {
+            if(tkekafisSiaArray[tkekafi_ID].treeArray[i].shenishvna !== el) {
                 const htmlShenishvnebi = `<option value="${el}">`;
                 editShenishvna.insertAdjacentHTML('beforeend', htmlShenishvnebi);
             }
         });
 
         moculobebi.forEach((el, ind) => {
-            if(treeArray[i].moculoba !== el) {
+            if(tkekafisSiaArray[tkekafi_ID].treeArray[i].moculoba !== el) {
                 const htmlMoculoba = `<option value="${ind}">${el}</option>`;
                 editMoculoba.insertAdjacentHTML('beforeend', htmlMoculoba);
             }
@@ -2667,30 +2858,35 @@ function saveEdit(index) {
                 shenishvna: shenishvnaInputEdited.value,
                 moculoba: moculobebi[moculobaEdited.value],
             }
-            console.log(treeArray);
+            console.log(tkekafisSiaArray[tkekafi_ID].treeArray);
             console.log(index);
-            treeArray[index] = data;
-            localStorage.setItem('treeArray', JSON.stringify(treeArray));
-            treeArrayFromJSON = JSON.parse(localStorage.getItem('treeArray'));
-            console.log("json", treeArrayFromJSON);
-            renderData(treeArrayFromJSON);
-            renderJami(treeArrayFromJSON);
+            tkekafisSiaArray[tkekafi_ID].treeArray[index] = data;
+            localStorage.setItem('tkekafisSiaArray', JSON.stringify(tkekafisSiaArray));
+            tkekafisSiaArrayJSON = JSON.parse(localStorage.getItem('tkekafisSiaArray'));
+            console.log("json", tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
+            renderData(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
+            renderJami(tkekafisSiaArrayJSON[tkekafi_ID].treeArray);
         }
     }
 }
 
 function initialize() {
-    renderData(treeArrayFromJSON);
-    renderTanrigi(minichebuliTanrigi);
-    renderSelectOptions(minichebuliTanrigi);
-    renderJami(treeArrayFromJSON);
-    renderInputValues(infLiteri, infLiteriArrJSON);
-    renderInputValues(gpsCoordinates, gpsCoordinatesArrJSON);
-    renderInputValues(infTkekafi, infTkekafiArrJSON);
-    renderInputValues(taxLiterTket, taxLiterTketArrJSON);
-    renderInputValues(taxLiterFactobrivi, taxLiterFactobriviArrJSON);
+    if(tkekafisSiaArrayJSON) {
+        const currentObj = tkekafisSiaArrayJSON[tkekafi_ID];
+        renderTkekafiSiaBtn(tkekafisSiaArrayJSON);
+        renderData(currentObj.treeArray);
+        renderTanrigi(currentObj.tanrigebi);
+        renderSelectOptions(currentObj.tanrigebi);
+        renderJami(currentObj.treeArray);
+        renderInputValues(infLiteri, currentObj.infLiteri);
+        renderInputValues(gpsCoordinates, currentObj.gpsCoordinates);
+        renderInputValues(infTkekafi, currentObj.infTkekafi);
+        renderInputValues(taxLiterTket, currentObj.taxLiterTket);
+        renderInputValues(taxLiterFactobrivi, currentObj.taxLiterFactobrivi);
 
-    minichebuliTanrigiArr = JSON.parse(localStorage.getItem('tanrigebi'));
+        minichebuliTanrigiArr = currentObj.tanrigebi
+    }
+    
 
     moculobebi.forEach((el, ind) => {
         const htmlMoculobaOptions = `<option value="${ind}">${el}</option>`;
@@ -2701,9 +2897,6 @@ function initialize() {
         const htmlShenishvnaOptions = `<option value="${el}"></option>`;
         shenishvna.insertAdjacentHTML('beforeend', htmlShenishvnaOptions);
     });
-
-    // console.log('treeArray', treeArray);
-    // console.log("json", treeArrayFromJSON);
 }
 
 initialize();

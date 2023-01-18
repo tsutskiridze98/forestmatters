@@ -2004,14 +2004,14 @@ tkekafisSiaAdd.addEventListener('click', ()=> {
 
     tkekafisSia = document.querySelectorAll('.tkekafis-sia');
     tkekafisSia.forEach((el, i) => {
-            if(i == tkekafi_ID) {
-                el.classList.add('btn-primary');
-                el.classList.remove('btn-outline-primary');
-            } else {
-                el.classList.remove('btn-primary');
-                el.classList.add('btn-outline-primary');
-            }
-        });
+        if(i == tkekafi_ID) {
+            el.classList.add('btn-primary');
+            el.classList.remove('btn-outline-primary');
+        } else {
+            el.classList.remove('btn-primary');
+            el.classList.add('btn-outline-primary');
+        }
+    });
 });
 
 function renderTkekafiSiaBtn(arr) {
@@ -2884,6 +2884,21 @@ function initialize() {
         renderInputValues(taxLiterTket, currentObj.taxLiterTket);
         renderInputValues(taxLiterFactobrivi, currentObj.taxLiterFactobrivi);
 
+        setTimeout(()=>{
+            tkekafisSia = document.querySelectorAll('.tkekafis-sia');
+            console.log(tkekafisSia);
+            tkekafisSia.forEach((el, i) => {
+                if(i == tkekafi_ID) {
+                    el.classList.add('btn-primary');
+                    el.classList.remove('btn-outline-primary');
+                } else {
+                    el.classList.remove('btn-primary');
+                    el.classList.add('btn-outline-primary');
+                }
+            });
+        }, 100);
+        
+
         minichebuliTanrigiArr = currentObj.tanrigebi
     }
     
@@ -2900,3 +2915,4 @@ function initialize() {
 }
 
 initialize();
+
